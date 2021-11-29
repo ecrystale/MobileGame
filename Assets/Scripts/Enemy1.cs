@@ -28,7 +28,7 @@ public class Enemy1 : MonoBehaviour
     void Update()
     {
      interval -= Time.deltaTime;
-     if (interval < 0)
+     if ((interval <= 0) && (line < spawn.Length))
      {
         int offset = 0;
         foreach(char part in spawn[line]){
