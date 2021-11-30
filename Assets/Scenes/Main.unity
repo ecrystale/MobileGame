@@ -162,7 +162,7 @@ MonoBehaviour:
     objectPrefab: {fileID: 6405302573296549125, guid: a25fce3e2f75dde4b9f3cbb93819e1fc, type: 3}
     maxObjs: 100
   - tag: EnemyShotType1
-    objectPrefab: {fileID: 6405302573296549125, guid: a25fce3e2f75dde4b9f3cbb93819e1fc, type: 3}
+    objectPrefab: {fileID: 1738278817503413624, guid: af81416becdb4bf48bceb7a91492998e, type: 3}
     maxObjs: 200
 --- !u!4 &656249797
 Transform:

@@ -21,7 +21,7 @@ public class Emitter : MonoBehaviour{
     IEnumerator shoot(){
         canShoot = false;
         objectPooler.instantiateObjFromPool("EnemyShotType1", transform.position, transform.rotation);
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.025f);
         canShoot = true;
     }
 }
