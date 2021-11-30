@@ -7,10 +7,17 @@ public class PlayerMovement : MonoBehaviour{
     private Vector2 initialPos;
     private float xOffset;
     private float yOffset;
-    private float upperXBound = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).x;
-    private float lowerXBound = -Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).x;
-    private float lowerYBound = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).y;
-    private float upperYBound = -Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).y;
+    private float upperXBound;
+    private float lowerXBound; 
+    private float lowerYBound; 
+    private float upperYBound;
+
+    void Start(){
+        upperXBound = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).x;
+        lowerXBound = -Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).x;
+        lowerYBound = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).y;
+        upperYBound = -Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).y;
+    }
 
     void Update(){
         if(Input.touchCount > 0){
