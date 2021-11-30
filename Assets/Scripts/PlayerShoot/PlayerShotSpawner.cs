@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShotSpawner : MonoBehaviour{
-    public GameObject playerShotPrefab;
+
     public bool canFire = true;
+    ObjectPooler objectPooler;
+
+    void Start(){
+        objectPooler = FindObjectOfType<ObjectPooler>();
+    }
 
     public void shoot(){
-        Instantiate(playerShotPrefab, transform.position, Quaternion.identity);
+        objectPooler.instantiateObjFromPool("PlayerShot", transform.position, Quaternion.identity);
     }
 }
