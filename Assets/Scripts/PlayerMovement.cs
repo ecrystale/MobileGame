@@ -16,8 +16,6 @@ public class PlayerMovement : MonoBehaviour{
                 initialPos = Camera.main.ScreenToWorldPoint(touch.position);
                 xOffset = initialPos.x - transform.position.x;
                 yOffset = initialPos.y - transform.position.y;
-                print(Camera.main.ScreenToWorldPoint(touch.position));
-                print(Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)));
             }
 
             if(touch.phase == TouchPhase.Moved){
