@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class EnemyShotBehavior : MonoBehaviour{
 
-    public float shotSpeed;
+    private float shotSpeed;
+    private Vector2 direction;
+
     private float upperXBound;
     private float lowerXBound; 
     private float lowerYBound; 
@@ -22,6 +24,10 @@ public class EnemyShotBehavior : MonoBehaviour{
            transform.position.y >  upperYBound || transform.position.y < lowerYBound){
                gameObject.SetActive(false);
         }
-        transform.Translate(Vector2.up * shotSpeed * Time.deltaTime);
+        transform.Translate(direction * shotSpeed * Time.deltaTime);
     }
+
+    public void setDirection(Vector2 direction){this.direction = direction;}
+    public void setShotSpeed(float speed){shotSpeed = speed;}
+
 }
