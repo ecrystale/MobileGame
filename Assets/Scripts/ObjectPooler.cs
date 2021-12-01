@@ -38,9 +38,9 @@ public class ObjectPooler : MonoBehaviour{
         }
     }
 
-    public void instantiateObjFromPool(string tag, Vector3 pos, Quaternion rotation){
+    public GameObject instantiateObjFromPool(string tag, Vector3 pos, Quaternion rotation){
         if(!poolDict.ContainsKey(tag)){
-            return;
+            return null;
         }
 
         GameObject curr = poolDict[tag].Dequeue();
@@ -50,5 +50,7 @@ public class ObjectPooler : MonoBehaviour{
         curr.transform.rotation = rotation;
 
         poolDict[tag].Enqueue(curr);
+
+        return curr;
     }
 }
