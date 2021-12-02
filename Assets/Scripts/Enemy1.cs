@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
+using System.IO;
 
 public class Enemy1 : MonoBehaviour
 {
@@ -10,74 +10,75 @@ public class Enemy1 : MonoBehaviour
     public GameObject[] spawnpts;
     public float interval = 2f;
     public string filename;
+    public Spawner[] Spawners;
 
     private string[] spawn;
-    private float origint;
-    private int line;
+    private float _originalSpawnInterval;
+    private int _wave;
+    private int _totalWave;
 
     void Start()
     {
-        spawn = System.IO.File.ReadAllLines("Assets/Scripts/Stages/"+filename);
-        foreach (string lines in spawn){
-          print(lines);
-        }
-        origint = interval;
-        line = 0;
+        Spawners = ParseStages(filename);
+        Debug.Log(JsonUtility.ToJson(new JsonWrapper<Spawner>(Spawners), true));
+
+        _wave = 0;
+        _totalWave = Spawners.Length;
+        _originalSpawnInterval = interval;
     }
 
     // Update is called once per frame
     void Update()
     {
-     interval -= Time.deltaTime;
-     if ((interval <= 0) && (line < spawn.Length))
-     {
-        string group = spawn[line];
-        int offset = 1;
-        int count = (int)Char.GetNumericValue(group[0]);
-        //print(group[-1]);
-        Vector3 spawnpt = spawnpts[(int)Char.GetNumericValue(group[count+5])].transform.position;
-        Vector3 pos = transform.position;
-        char format = group[count+3];
-        GameObject currenemy;
+        interval -= Time.deltaTime;
+        if ((interval <= 0) && (_wave < _totalWave))
+        {
+            GameObject currentEnemy;
+            Vector3 spawnOffset = Spawners[_wave].Direction.normalized;
+            Vector3 instantiatePosition = transform.position;
+            Vector3 spawnPosition = spawnpts[Spawners[_wave].SpawnPointIndex].transform.position;
+            if (Spawners[_wave].Centralized) spawnPosition -= spawnOffset * (1 + Spawners[_wave].Enemies.Length / 2);
 
-        if(format == 'v'){
-          pos.y-=(offset*(1+count/2));
-          spawnpt.y-=(offset*(1+count/2));
-          for(int i=0; i<count; i++){
-            pos.y += offset;
-            spawnpt.y +=offset;
-            currenemy = Instantiate(enemy[(int)Char.GetNumericValue(group[2+i])], pos, transform.rotation);
-            currenemy.SendMessage("Spawner", spawnpt);
-            //currenemy.transform.Translate(spawnpt);
+            for (int i = 0; i < Spawners[_wave].Enemies.Length; i++)
+            {
+                currentEnemy = Instantiate(enemy[Spawners[_wave].Enemies[i]], instantiatePosition, Quaternion.identity);
+                currentEnemy.GetComponent<enemymove>().Spawner(spawnPosition);
+                spawnPosition += spawnOffset;
+            }
 
-          }
+            _wave += 1;
+            interval = _originalSpawnInterval;
         }
-        else if (format == 'h') {
-          pos.x-=(offset*(1+count/2));
-          spawnpt.x-=(offset*(1+count/2));
-          for(int i=0; i<count; i++){
-            pos.x += offset;
-            spawnpt.x +=offset;
-            currenemy = Instantiate(enemy[(int)Char.GetNumericValue(group[2+i])], pos, transform.rotation);
-            currenemy.SendMessage("Spawner", spawnpt);
-            //currenemy.transform.Translate(spawnpt);
+    }
 
-          }
-        }
+    Spawner[] ParseStages(string stageFile)
+    {
+        string[] rawStages = File.ReadAllLines(PublicVars.GetStagePath(stageFile));
 
-        /*
-        foreach(char part in spawn[line]){
-           if (Char.IsDigit(part)){
-             Vector3 pos = transform.position;
-             pos.x+=offset;
-             GameObject enem = Instantiate(enemy[(int)Char.GetNumericValue(part)],pos, transform.rotation);
-            //enem.velocity = transform.TransformDirection(Vector3.forward * 10);
-           }
-           offset+=3;
-         }*/
-         line+=1;
-         interval = origint;
-     }
+        return rawStages.Select(rawStage =>
+        {
+            // Format:
+            //    0000000          v           1           false
+            // enemy indexes   direction  spawn index   centralized
+            //    0000000        1|2         1             true
+            Spawner spawner = new Spawner();
 
+            string[] segments = rawStage.Split();
+
+            spawner.Enemies = segments[0].Select(enemyChar => Int32.Parse(enemyChar.ToString())).ToArray();
+            spawner.SpawnPointIndex = Int32.Parse(segments[2]);
+            spawner.Centralized = bool.Parse(segments[3]);
+
+            if (segments[1].Length == 1)
+            {
+                spawner.Direction = segments[1] == "v" ? Vector2.down : Vector2.right;
+            }
+            else
+            {
+                float[] components = segments[1].Split('|').Select(component => float.Parse(component)).ToArray();
+                spawner.Direction = new Vector2(components[0], components[1]);
+            }
+            return spawner;
+        }).ToArray();
     }
 }

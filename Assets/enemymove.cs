@@ -25,7 +25,7 @@ public class enemymove : MonoBehaviour
       transform.position = Vector3.Lerp(transform.position,endpos, speed * Time.deltaTime);
     }
 
-    void Spawner(Vector3 pos){
+    public void Spawner(Vector3 pos){
       endpos = pos;
     }
 }

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class PublicVars : MonoBehaviour
@@ -11,4 +10,5 @@ public class PublicVars : MonoBehaviour
     public static float shotSize = 1f;
 
     public static string PlayerDataFile = "data.json";
+    public static string GetStagePath(string name) => Path.Combine("Assets/Scripts/Stages", name);
 }
