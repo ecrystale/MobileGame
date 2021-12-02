@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerShotBehavior : MonoBehaviour
 {
-
+    public int Damage = 5;
     private float shotSpeed = PublicVars.shotSpeed;
     private float upperXBound;
     private float lowerXBound;
