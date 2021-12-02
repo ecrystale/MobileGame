@@ -16,9 +16,10 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1")){
-          GameObject newbullet = Instantiate(bullet, transform.position, Quaternion.identity);
-          newbullet.GetComponent<Rigidbody2D>().AddForce(new Vector2(bulletspd * Input.mousePosition.x, bulletspd * Input.mousePosition.y +1));
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GameObject newbullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            newbullet.GetComponent<Rigidbody2D>().AddForce(new Vector2(bulletspd * Input.mousePosition.x, bulletspd * Input.mousePosition.y + 1));
         }
     }
 }

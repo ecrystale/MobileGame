@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Emitter : MonoBehaviour{
+public class Emitter : MonoBehaviour
+{
 
     private ObjectPooler objectPooler;
     private bool canShoot = true;
 
     [SerializeField]
     private float rateOfFire = 0.1f;
-    
+
     [SerializeField]
     private float shotSpeed = 8f;
 
@@ -22,24 +23,29 @@ public class Emitter : MonoBehaviour{
     [SerializeField]
     private int angularVelocity = 180;
 
-    void Start(){
+    void Start()
+    {
         objectPooler = FindObjectOfType<ObjectPooler>();
     }
 
-    void Update(){
+    void Update()
+    {
         transform.Rotate(0, 0, angularVelocity * Time.deltaTime);
-        if(canShoot){
+        if (canShoot)
+        {
             StartCoroutine(shoot());
         }
     }
 
-    IEnumerator shoot(){
+    IEnumerator shoot()
+    {
         canShoot = false;
 
         float thetaStep = (endAngle - startAngle) / spokes;
         float initialAngle = startAngle;
 
-        for(int i = 0; i < spokes + 1; i++){
+        for (int i = 0; i < spokes + 1; i++)
+        {
             float xDir = transform.position.x + Mathf.Sin(initialAngle * Mathf.PI / 180f);
             float yDir = transform.position.y + Mathf.Cos(initialAngle * Mathf.PI / 180f);
 

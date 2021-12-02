@@ -154,7 +154,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.MobileGame.Main
-    Standalone: com.DefaultCompany.2DTouch
+    Standalone: com.MobileGame.Main
     iPhone: com.MobileGame.Main
   buildNumber:
     Standalone: 0

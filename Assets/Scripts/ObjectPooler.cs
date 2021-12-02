@@ -2,19 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPooler : MonoBehaviour{
+public class ObjectPooler : MonoBehaviour
+{
 
     [System.Serializable]
-    public class Pool{
+    public class Pool
+    {
         public string tag;
         public GameObject objectPrefab;
         public int maxObjs;
     }
 
-    void Awake(){
-        if(FindObjectsOfType<ObjectPooler>().Length > 1){
+    void Awake()
+    {
+        if (FindObjectsOfType<ObjectPooler>().Length > 1)
+        {
             Destroy(gameObject);
-        } else {
+        }
+        else
+        {
             DontDestroyOnLoad(gameObject);
         }
     }
@@ -22,13 +28,16 @@ public class ObjectPooler : MonoBehaviour{
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDict;
 
-    void Start(){
+    void Start()
+    {
         poolDict = new Dictionary<string, Queue<GameObject>>();
 
-        foreach (Pool pool in pools){
+        foreach (Pool pool in pools)
+        {
             Queue<GameObject> objPool = new Queue<GameObject>();
 
-            for(int i = 0; i < pool.maxObjs; i++){
+            for (int i = 0; i < pool.maxObjs; i++)
+            {
                 GameObject obj = Instantiate(pool.objectPrefab);
                 obj.SetActive(false);
                 objPool.Enqueue(obj);
@@ -38,8 +47,10 @@ public class ObjectPooler : MonoBehaviour{
         }
     }
 
-    public GameObject instantiateObjFromPool(string tag, Vector3 pos, Quaternion rotation){
-        if(!poolDict.ContainsKey(tag)){
+    public GameObject instantiateObjFromPool(string tag, Vector3 pos, Quaternion rotation)
+    {
+        if (!poolDict.ContainsKey(tag))
+        {
             return null;
         }
 
