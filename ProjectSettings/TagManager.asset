@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ShotSpawner
+  - EnemyShot
   layers:
   - Default
   - TransparentFX
