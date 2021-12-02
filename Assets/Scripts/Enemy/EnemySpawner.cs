@@ -10,20 +10,19 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] spawnpts;
     public float interval = 2f;
     public string filename;
-    public Spawner[] Spawners;
 
-    private string[] spawn;
+    private Spawner[] _spawners;
     private float _originalSpawnInterval;
     private int _wave;
     private int _totalWave;
 
     void Start()
     {
-        Spawners = ParseStages(filename);
-        Debug.Log(JsonUtility.ToJson(new JsonWrapper<Spawner>(Spawners), true));
+        _spawners = ParseStages(filename);
+        Debug.Log(JsonUtility.ToJson(new JsonWrapper<Spawner>(_spawners), true));
 
         _wave = 0;
-        _totalWave = Spawners.Length;
+        _totalWave = _spawners.Length;
         _originalSpawnInterval = interval;
     }
 
@@ -34,14 +33,14 @@ public class EnemySpawner : MonoBehaviour
         if ((interval <= 0) && (_wave < _totalWave))
         {
             GameObject currentEnemy;
-            Vector3 spawnOffset = Spawners[_wave].Direction.normalized;
+            Vector3 spawnOffset = _spawners[_wave].Direction.normalized;
             Vector3 instantiatePosition = transform.position;
-            Vector3 spawnPosition = spawnpts[Spawners[_wave].SpawnPointIndex].transform.position;
-            if (Spawners[_wave].Centralized) spawnPosition -= spawnOffset * (1 + Spawners[_wave].Enemies.Length / 2);
+            Vector3 spawnPosition = spawnpts[_spawners[_wave].SpawnPointIndex].transform.position;
+            if (_spawners[_wave].Centralized) spawnPosition -= spawnOffset * (1 + _spawners[_wave].Enemies.Length / 2);
 
-            for (int i = 0; i < Spawners[_wave].Enemies.Length; i++)
+            for (int i = 0; i < _spawners[_wave].Enemies.Length; i++)
             {
-                currentEnemy = Instantiate(enemy[Spawners[_wave].Enemies[i]], instantiatePosition, Quaternion.identity);
+                currentEnemy = Instantiate(enemy[_spawners[_wave].Enemies[i]], instantiatePosition, Quaternion.identity);
                 currentEnemy.GetComponent<EnemyMove>().Spawner(spawnPosition);
                 spawnPosition += spawnOffset;
             }
