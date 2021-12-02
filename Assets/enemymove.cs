@@ -5,13 +5,13 @@ using UnityEngine;
 public class enemymove : MonoBehaviour
 {
     public Vector3 endpos = new Vector3(0,0,0);
-    public float speed = 2f;
+    public float speed;
     //public float orig = 0.01f;
     //public float interval = 40f;
     // Start is called before the first frame update
     void Start()
     {
-
+      speed = 3f;
     }
 
     // Update is called once per frame
@@ -22,8 +22,7 @@ public class enemymove : MonoBehaviour
       //transform.position = Vector3.Lerp(transform.position, endpos, spd*(Time.deltaTime/interval));
       //  interval = orig;
       //}
-      transform.position = Vector3.Lerp(transform.position,endpos, speed*Time.deltaTime);
-
+      transform.position = Vector3.Lerp(transform.position,endpos, speed * Time.deltaTime);
     }
 
     void Spawner(Vector3 pos){

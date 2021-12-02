@@ -96,4 +96,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endpos: {x: 0, y: 0, z: 0}
-  speed: 0.2
+  speed: 3
