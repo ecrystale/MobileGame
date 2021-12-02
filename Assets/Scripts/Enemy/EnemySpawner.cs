@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.IO;
 
-public class Enemy1 : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject[] enemy;
@@ -42,7 +42,7 @@ public class Enemy1 : MonoBehaviour
             for (int i = 0; i < Spawners[_wave].Enemies.Length; i++)
             {
                 currentEnemy = Instantiate(enemy[Spawners[_wave].Enemies[i]], instantiatePosition, Quaternion.identity);
-                currentEnemy.GetComponent<enemymove>().Spawner(spawnPosition);
+                currentEnemy.GetComponent<EnemyMove>().Spawner(spawnPosition);
                 spawnPosition += spawnOffset;
             }
 

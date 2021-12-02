@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class enemymove : MonoBehaviour
+public class EnemyMove : MonoBehaviour
 {
     public Vector3 endpos = new Vector3(0, 0, 0);
     public float speed;
