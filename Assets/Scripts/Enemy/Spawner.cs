@@ -10,4 +10,6 @@ public struct Spawner
     /// <value>The offset BETWEEN enemies</value>
     public float OffsetBetween;
     public bool Centralized;
+    /// <value>The time this group of enemies shall stay</value>
+    public float Duration;
 }

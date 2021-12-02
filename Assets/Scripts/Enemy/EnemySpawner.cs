@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
             for (int i = 0; i < _spawners[_wave].Enemies.Length; i++)
             {
                 currentEnemy = Instantiate(enemy[_spawners[_wave].Enemies[i]], instantiatePosition, Quaternion.identity);
-                currentEnemy.GetComponent<EnemyMove>().Spawner(spawnPosition);
+                currentEnemy.GetComponent<EnemyMove>().Spawner(spawnPosition, instantiatePosition, _spawners[_wave].Duration);
                 spawnPosition += spawnOffset;
             }
 
@@ -57,16 +57,24 @@ public class EnemySpawner : MonoBehaviour
         return rawStages.Select(rawStage =>
         {
             // Format:
-            //    0000000          v           1           false
-            // enemy indexes   direction  spawn index   centralized
-            //    0000000        1|2         1             true
+            //    0000000          v           1           false         1
+            // enemy indexes   direction  spawn index   centralized   duration
+            //    0000000        1|2         1             true          -1
             Spawner spawner = new Spawner();
 
             string[] segments = rawStage.Split();
-
-            spawner.Enemies = segments[0].Select(enemyChar => Int32.Parse(enemyChar.ToString())).ToArray();
-            spawner.SpawnPointIndex = Int32.Parse(segments[2]);
-            spawner.Centralized = bool.Parse(segments[3]);
+            if (segments.Length < 5) throw new ParsingException($"5 arguments excepted, but {segments.Length} arguments are given in {stageFile}");
+            try
+            {
+                spawner.Enemies = segments[0].Select(enemyChar => Int32.Parse(enemyChar.ToString())).ToArray();
+                spawner.SpawnPointIndex = Int32.Parse(segments[2]);
+                spawner.Centralized = bool.Parse(segments[3]);
+                spawner.Duration = Int32.Parse(segments[4]);
+            }
+            catch
+            {
+                throw new ParsingException($"Failed to parse line \"{rawStage}\" in {stageFile}");
+            }
 
             if (segments[1].Length == 1)
             {

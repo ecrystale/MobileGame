@@ -1,30 +1,33 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyMove : MonoBehaviour
 {
     public Vector3 endpos = new Vector3(0, 0, 0);
     public float speed;
-    //public float orig = 0.01f;
-    //public float interval = 40f;
-    // Start is called before the first frame update
+
     void Start()
     {
         speed = 3f;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //interval -= Time.deltaTime;
-        //if (interval <= 0){
-        //transform.position = Vector3.Lerp(transform.position, endpos, spd*(Time.deltaTime/interval));
-        //  interval = orig;
-        //}
         transform.position = Vector3.Lerp(transform.position, endpos, speed * Time.deltaTime);
     }
 
-    public void Spawner(Vector3 pos)
+    public void Spawner(Vector3 pos, Vector3 exitpos, float duration)
     {
+        if (duration == -1) return;
         endpos = pos;
+        float timeToExit = Vector3.Distance(exitpos, endpos) / speed;
+        //Destroy(this.gameObject, duration);
+        StartCoroutine(DelayExit(exitpos, duration - timeToExit));
+    }
+
+    IEnumerator DelayExit(Vector3 exitpos, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        endpos = exitpos;
     }
 }

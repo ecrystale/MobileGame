@@ -1,4 +1,4 @@
-0 h 0 true
-0 v 1 true
-1 0.5|1 0 true
-1 1|-0.5 1 true
+0000 h 0 true 4
+0000 v 1 true 4
+1 0.5|1 0 true 4
+1 1|-0.5 1 true -1
