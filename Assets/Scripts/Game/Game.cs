@@ -2,10 +2,25 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    static Game CurrentGame;
+
+    public PlayerData PlayerData { get; set; }
+
     private void Awake()
     {
-        PlayerData playerData = PlayerData.LoadJsonData(PublicVars.PlayerDataFile);
-        playerData.shotSize = 200f;
-        playerData.SaveJsonData(PublicVars.PlayerDataFile);
+        if (CurrentGame != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        CurrentGame = this;
+        DontDestroyOnLoad(this);
+        PlayerData = PlayerData.LoadJsonData(PublicVars.PlayerDataFile);
+    }
+
+    public void SaveGame()
+    {
+        PlayerData.SaveJsonData(PublicVars.PlayerDataFile);
     }
 }

@@ -8,6 +8,7 @@ public class PlayerData
     public float rateOfFire = 0.1f;
     public float shotSpeed = 12f;
     public float shotSize = 1f;
+    public int stage = 0;
 
     private static string GetDataPath(string filename)
     {
