@@ -9,8 +9,12 @@ public class PublicVars : MonoBehaviour
     public static float shotSpeed = 12f;
     public static float shotSize = 1f;
 
+    public const float GENERAL_FADE_TIME = 0.5f;
+
+    public static TransitionManager TransitionManager;
     public static string PlayerDataFile = "data.json";
     public static string GetStagePath(string name) => Path.Combine("Assets/Scripts/Stages", name);
+    private static string GetDataPath(string name) => Path.Combine(Application.persistentDataPath, name);
     // 
     // public static string GetStagePath(string name) => Application.persistentDataPath + "/Assets/Scripts/Stages" + name;
 }

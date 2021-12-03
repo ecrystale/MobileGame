@@ -8,6 +8,7 @@ public class EnemyHealth : MonoBehaviour
     public event Action<EnemyHealth> Destroyed;
 
     private int _health;
+    private bool destroyed = false;
 
     private void Start()
     {
@@ -23,6 +24,11 @@ public class EnemyHealth : MonoBehaviour
             if (_health <= 0)
             {
                 // Invoke the destruction event
+                if (Destroyed != null && !destroyed)
+                {
+                    destroyed = true;
+                    Destroyed(this);
+                };
                 Destroy(gameObject);
             }
         }
