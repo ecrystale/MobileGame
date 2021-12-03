@@ -23,7 +23,6 @@ public class EnemyHealth : MonoBehaviour
             if (_health <= 0)
             {
                 // Invoke the destruction event
-                Destroyed(this);
                 Destroy(gameObject);
             }
         }
