@@ -936,6 +936,10 @@ PrefabInstance:
       value: Spawner
       objectReference: {fileID: 0}
     - target: {fileID: 5953743725605217338, guid: d4d9ed7c25dd9964b8438c43cb01cdd4, type: 3}
+      propertyPath: textFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 1f983a96836ebf44696a34cb5889a7ba, type: 3}
+    - target: {fileID: 5953743725605217338, guid: d4d9ed7c25dd9964b8438c43cb01cdd4, type: 3}
       propertyPath: spawnpts.Array.data[0]
       value: 
       objectReference: {fileID: 861398168}

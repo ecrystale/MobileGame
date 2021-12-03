@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using System.IO;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] spawnpts;
     public float interval = 2f;
     public string filename;
+    public TextAsset textFile;
 
     private Spawner[] _spawners;
     private float _originalSpawnInterval;
@@ -52,7 +54,12 @@ public class EnemySpawner : MonoBehaviour
 
     Spawner[] ParseStages(string stageFile)
     {
-        string[] rawStages = File.ReadAllLines(PublicVars.GetStagePath(stageFile));
+        string[] rawStages;
+        if(textFile){
+          rawStages = textFile.text.Split('\n');
+          /*foreach(string line in rawStages){
+            print(line);
+          }*/
 
         return rawStages.Select(rawStage =>
         {
@@ -88,4 +95,6 @@ public class EnemySpawner : MonoBehaviour
             return spawner;
         }).ToArray();
     }
-}
+
+    return new Spawner[0];
+}}
