@@ -11,4 +11,6 @@ public class PublicVars : MonoBehaviour
 
     public static string PlayerDataFile = "data.json";
     public static string GetStagePath(string name) => Path.Combine("Assets/Scripts/Stages", name);
+    // 
+    // public static string GetStagePath(string name) => Application.persistentDataPath + "/Assets/Scripts/Stages" + name;
 }
