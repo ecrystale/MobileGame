@@ -28,6 +28,7 @@ public class Game : MonoBehaviour
     {
         if (!isLastWave) return;
         Debug.Log("stage cleared");
+        StopAllCoroutines();
         PublicVars.TransitionManager.FadeToScene(Stages[++CurrentStage], 1f);
     }
 
