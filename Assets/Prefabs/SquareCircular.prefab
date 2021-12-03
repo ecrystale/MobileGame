@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rateOfFire: 0.5
-  shotSpeed: 4
+  shotSpeed: 2
   startAngle: 0
   endAngle: 360
-  spokes: 15
+  spokes: 10
   angularVelocity: 0
 --- !u!114 &3157617504559026000
 MonoBehaviour:

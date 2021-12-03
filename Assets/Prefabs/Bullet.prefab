@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6405302573296549126}
   - component: {fileID: 895345989839844997}
   - component: {fileID: 438880808791119227}
+  - component: {fileID: -839831917620911155}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: PlayerShot
@@ -113,3 +114,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.0000001, y: 1.9999999}
   m_Direction: 0
+--- !u!50 &-839831917620911155
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6405302573296549125}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
