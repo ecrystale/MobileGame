@@ -60,50 +60,53 @@ public class EnemySpawner : MonoBehaviour
 
     Spawner[] ParseStages(string stageFile)
     {
+        if (!textFile) throw new ArgumentException("A textfile is required for the stage");
+
         string[] rawStages;
-        if (textFile)
+        rawStages = textFile.text.Split('\n');
+        int MaxSpawnPoint = 0;
+        int MaxEnemyTypeIndex = 0;
+
+        Spawner[] parsedStages = rawStages.Select(rawStage =>
         {
-            rawStages = textFile.text.Split('\n');
-            /*foreach(string line in rawStages){
-              print(line);
-            }*/
+            // Format:
+            //    0000000          v           1           false         1
+            // enemy indexes   direction  spawn index   centralized   duration
+            //    0000000        1|2         1             true          -1
+            Spawner spawner = new Spawner();
 
-            return rawStages.Select(rawStage =>
+            string[] segments = rawStage.Split();
+            if (segments.Length < 5) throw new ParsingException($"5 arguments excepted, but {segments.Length} arguments are given in {stageFile}");
+            try
             {
-                // Format:
-                //    0000000          v           1           false         1
-                // enemy indexes   direction  spawn index   centralized   duration
-                //    0000000        1|2         1             true          -1
-                Spawner spawner = new Spawner();
+                spawner.Enemies = segments[0].Select(enemyChar => Int32.Parse(enemyChar.ToString())).ToArray();
+                spawner.SpawnPointIndex = Int32.Parse(segments[2]);
+                spawner.Centralized = bool.Parse(segments[3]);
+                spawner.Duration = Int32.Parse(segments[4]);
+                MaxSpawnPoint = Math.Max(spawner.SpawnPointIndex, MaxSpawnPoint);
+                Debug.Log(spawner.Enemies[spawner.Enemies.Max(e => e)]);
+                MaxEnemyTypeIndex = Math.Max(spawner.Enemies[spawner.Enemies.Max(e => e)], MaxEnemyTypeIndex);
+                Debug.Log(MaxEnemyTypeIndex);
+            }
+            catch
+            {
+                throw new ParsingException($"Failed to parse line \"{rawStage}\" in {stageFile}");
+            }
 
-                string[] segments = rawStage.Split();
-                if (segments.Length < 5) throw new ParsingException($"5 arguments excepted, but {segments.Length} arguments are given in {stageFile}");
-                try
-                {
-                    spawner.Enemies = segments[0].Select(enemyChar => Int32.Parse(enemyChar.ToString())).ToArray();
-                    spawner.SpawnPointIndex = Int32.Parse(segments[2]);
-                    spawner.Centralized = bool.Parse(segments[3]);
-                    spawner.Duration = Int32.Parse(segments[4]);
-                }
-                catch
-                {
-                    throw new ParsingException($"Failed to parse line \"{rawStage}\" in {stageFile}");
-                }
-
-                if (segments[1].Length == 1)
-                {
-                    spawner.Direction = segments[1] == "v" ? Vector2.down : Vector2.right;
-                }
-                else
-                {
-                    float[] components = segments[1].Split('|').Select(component => float.Parse(component)).ToArray();
-                    spawner.Direction = new Vector2(components[0], components[1]);
-                }
-                return spawner;
-            }).ToArray();
-        }
-
-        return new Spawner[0];
+            if (segments[1].Length == 1)
+            {
+                spawner.Direction = segments[1] == "v" ? Vector2.down : Vector2.right;
+            }
+            else
+            {
+                float[] components = segments[1].Split('|').Select(component => float.Parse(component)).ToArray();
+                spawner.Direction = new Vector2(components[0], components[1]);
+            }
+            return spawner;
+        }).ToArray();
+        if (MaxSpawnPoint >= spawnpts.Length) throw new ArgumentException($"Not enough spawn points! At least {MaxSpawnPoint + 1} spawn points are required for this stage");
+        if (MaxEnemyTypeIndex >= enemy.Length) throw new ArgumentException($"Not enough enemy types! At least {MaxEnemyTypeIndex + 1} types of enemy are required for this stage");
+        return parsedStages;
     }
 
     void HandleDestroyed(int wave, EnemyHealth enemyHealth, bool isLastWave)
