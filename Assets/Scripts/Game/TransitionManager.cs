@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,7 @@ public class TransitionManager : MonoBehaviour
     public AudioSource MainTheme;
 
     public RawImage ScreenOverlay;
+    public event Action SceneLoaded;
 
     private AudioSource _currentMusic;
     private AudioSource _transitionMusic;

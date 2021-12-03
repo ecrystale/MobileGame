@@ -30,6 +30,11 @@ public class ObjectPooler : MonoBehaviour
 
     void Start()
     {
+        InitializePool();
+    }
+
+    public void InitializePool()
+    {
         poolDict = new Dictionary<string, Queue<GameObject>>();
 
         foreach (Pool pool in pools)
@@ -49,6 +54,11 @@ public class ObjectPooler : MonoBehaviour
 
     public GameObject instantiateObjFromPool(string tag, Vector3 pos, Quaternion rotation)
     {
+        if (poolDict == null)
+        {
+            InitializePool();
+        }
+
         if (!poolDict.ContainsKey(tag))
         {
             return null;
