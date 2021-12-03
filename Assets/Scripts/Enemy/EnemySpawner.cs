@@ -8,11 +8,11 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] enemy;
     public GameObject[] spawnpts;
     public float interval = 2f;
-    public string filename;
     public TextAsset textFile;
     public event Action<EnemySpawner, int, bool> WaveCleared;
 
-    private Spawner[] _spawners;
+    [ReadOnly]
+    public Spawner[] _spawners;
     private float _originalSpawnInterval;
     private int _wave;
     private int _totalWave;
@@ -20,9 +20,6 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        _spawners = ParseStages(filename);
-        Debug.Log(JsonUtility.ToJson(new JsonWrapper<Spawner>(_spawners), true));
-
         _wave = 0;
         _totalWave = _spawners.Length;
         _originalSpawnInterval = interval;
@@ -58,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    Spawner[] ParseStages(string stageFile)
+    public Spawner[] ParseStages()
     {
         if (!textFile) throw new ArgumentException("A textfile is required for the stage");
 
@@ -76,7 +73,7 @@ public class EnemySpawner : MonoBehaviour
             Spawner spawner = new Spawner();
 
             string[] segments = rawStage.Split();
-            if (segments.Length < 5) throw new ParsingException($"5 arguments excepted, but {segments.Length} arguments are given in {stageFile}");
+            if (segments.Length < 5) throw new ParsingException($"5 arguments excepted, but {segments.Length} arguments are given in {textFile.name}");
             try
             {
                 spawner.Enemies = segments[0].Select(enemyChar => Int32.Parse(enemyChar.ToString())).ToArray();
@@ -84,13 +81,11 @@ public class EnemySpawner : MonoBehaviour
                 spawner.Centralized = bool.Parse(segments[3]);
                 spawner.Duration = Int32.Parse(segments[4]);
                 MaxSpawnPoint = Math.Max(spawner.SpawnPointIndex, MaxSpawnPoint);
-                Debug.Log(spawner.Enemies[spawner.Enemies.Max(e => e)]);
                 MaxEnemyTypeIndex = Math.Max(spawner.Enemies[spawner.Enemies.Max(e => e)], MaxEnemyTypeIndex);
-                Debug.Log(MaxEnemyTypeIndex);
             }
             catch
             {
-                throw new ParsingException($"Failed to parse line \"{rawStage}\" in {stageFile}");
+                throw new ParsingException($"Failed to parse line \"{rawStage}\" in {textFile.name}");
             }
 
             if (segments[1].Length == 1)
@@ -111,7 +106,6 @@ public class EnemySpawner : MonoBehaviour
 
     void HandleDestroyed(int wave, EnemyHealth enemyHealth, bool isLastWave)
     {
-        Debug.Log($"Destroyed 1 at wave {wave}, {_waveEnemiesCount[wave]} remaining");
         _waveEnemiesCount[wave]--;
         if (_waveEnemiesCount[wave] == 0)
         {
