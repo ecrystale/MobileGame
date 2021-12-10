@@ -1184,7 +1184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 495837736}
-  Showed: 0
+  Showed: 1
   PassiveObjects: []
 --- !u!1 &607543797
 GameObject:
@@ -4175,6 +4175,10 @@ PrefabInstance:
     - target: {fileID: 8623369223826447881, guid: 1c00a986f62c99a438a9a41b72a4025c, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8623369223826447881, guid: 1c00a986f62c99a438a9a41b72a4025c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8623369223826447887, guid: 1c00a986f62c99a438a9a41b72a4025c, type: 3}
       propertyPath: m_RootOrder

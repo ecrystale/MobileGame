@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef9be8721faa0e46a5445ac943893e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  Player: {fileID: 8623369223826447881}
   Dead: 0
 --- !u!58 &8623369222473903764
 CircleCollider2D:
