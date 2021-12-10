@@ -43,7 +43,7 @@ public class Game : MonoBehaviour
 
     public void LoadLevel(Level level)
     {
-        _currentSpawner.Reset(level.Spawners);
+        _currentSpawner.Reset(level);
         _currentSpawner.Active = true;
         Menu.Back();
         Menu.HideMenu();

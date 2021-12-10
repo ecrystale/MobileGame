@@ -11,6 +11,8 @@ public class PublicVars : MonoBehaviour
 
     public const float GENERAL_FADE_TIME = 0.5f;
     public const float DEBOUNCE_INTERVAL = 0.2f;
+    public const float WAVE_DEFAULT_INTERVAL = 6f;
+    public const float WAVE_INIT_INTERVAL = 2f;
 
     public static TransitionManager TransitionManager;
     public static string PlayerDataFile = "data.json";

@@ -12,9 +12,11 @@ public class EnemySpawnerEditor : Editor
 
         base.OnInspectorGUI();
 
+        if (_spawner.PreviewLevel == null) return;
+
         EditorGUI.BeginChangeCheck();
 
-        _spawner._spawners = LevelParser.ParseLevelFromFile(_spawner.textFile, _spawner.spawnpts.Length, _spawner.enemy.Length).Spawners;
+        _spawner.SpawnersPreview = LevelParser.ParseLevelFromFile(_spawner.PreviewLevel, _spawner.spawnpts.Length, _spawner.enemy.Length).Spawners;
 
         if (EditorGUI.EndChangeCheck())
         {

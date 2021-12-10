@@ -23,7 +23,7 @@ public class LevelButton : TimeoutBehaviour
     {
         if (CheckAndReset(PublicVars.DEBOUNCE_INTERVAL))
         {
-            Debug.Log(levelIDToLoad);
+            Debug.Log($"Loading level {levelIDToLoad}...");
             Game.CurrentGame.LoadLevel(levelIDToLoad);
         }
     }

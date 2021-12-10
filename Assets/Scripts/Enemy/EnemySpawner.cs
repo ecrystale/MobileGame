@@ -8,21 +8,24 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     public GameObject[] enemy;
     public GameObject[] spawnpts;
-    public float interval = 2f;
-    public TextAsset textFile;
     public bool Active = false;
     public event Action<EnemySpawner, int, bool> WaveCleared;
     public event Action<EnemySpawner, int, bool> WaveEntered;
 
+    [Tooltip("It is not used in the actual gameplay")]
+    public TextAsset PreviewLevel;
     [ReadOnly]
-    public Spawner[] _spawners;
+    public Spawner[] SpawnersPreview;
+
+    private Spawner[] _spawners;
+    private float _interval = 2f;
     private float _originalSpawnInterval;
     private int _wave;
     private int _totalWave;
     private int[] _waveEnemiesCount;
     private List<GameObject> _activeEnemies = new List<GameObject>();
 
-    public void Reset(Spawner[] spawners)
+    public void Reset(Level level)
     {
         Active = false;
 
@@ -32,10 +35,13 @@ public class EnemySpawner : MonoBehaviour
             Destroy(enemyGameObject);
         }
         _activeEnemies = new List<GameObject>();
-        _spawners = spawners;
+        _spawners = level.Spawners;
         _wave = 0;
         _totalWave = _spawners.Length;
-        _originalSpawnInterval = interval;
+
+        _interval = PublicVars.WAVE_INIT_INTERVAL;
+        _originalSpawnInterval = level.Info.Interval;
+
         _waveEnemiesCount = _spawners.Select(wave => wave.Enemies.Length - 1).ToArray();
     }
 
@@ -49,8 +55,8 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!Active) return;
 
-        interval -= Time.deltaTime;
-        if ((interval <= 0) && (_wave < _totalWave))
+        _interval -= Time.deltaTime;
+        if ((_interval <= 0) && (_wave < _totalWave))
         {
             GameObject currentEnemy;
             int wave = _wave;
@@ -75,7 +81,7 @@ public class EnemySpawner : MonoBehaviour
 
             _wave += 1;
 
-            interval = _originalSpawnInterval;
+            _interval = _originalSpawnInterval;
         }
     }
 
