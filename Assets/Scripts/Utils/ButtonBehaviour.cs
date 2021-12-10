@@ -13,7 +13,6 @@ public abstract class ButtonBehaviour : TimeoutBehaviour
     {
         if (CheckAndReset(PublicVars.DEBOUNCE_INTERVAL))
         {
-            Debug.Log("Handle click");
             HandleClick();
         }
     }

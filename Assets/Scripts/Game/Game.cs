@@ -13,12 +13,13 @@ public class Game : MonoBehaviour
     public int CurrentLevel = 0;
     public MenuManager Menu;
     public PlayerHitbox PlayerHitbox;
+    public int LevelProgress { get; private set; }
 
     public event Action<Level> GameOvered;
+    public event Action<int> ProgressMade;
 
     private SortedList<int, Level> _levels;
     private Level _currentLevel;
-    private int _levelProgress;
     private EnemySpawner _currentSpawner;
 
     private void Awake()
@@ -34,7 +35,7 @@ public class Game : MonoBehaviour
 
         // Load PlayerData
         PlayerData = PlayerData.LoadJsonData(PublicVars.PlayerDataFile);
-        _levelProgress = PlayerData.levelProgress;
+        LevelProgress = PlayerData.levelProgress;
 
         // Setup spawner
         _currentSpawner = FindObjectOfType<EnemySpawner>();
@@ -90,8 +91,16 @@ public class Game : MonoBehaviour
     {
         if (!isLastWave) return;
         StopAllCoroutines();
-        PlayerData.levelProgress = Math.Max(_currentLevel.Info.ID + 1, _levelProgress);
+        int nextLevel = _currentLevel.Info.ID + 1;
+        if (nextLevel > LevelProgress)
+        {
+            PlayerData.levelProgress = nextLevel;
+            LevelProgress = nextLevel;
+            ProgressMade(nextLevel);
+        }
         SaveGame();
+        Menu.LockDisplay(Menu.WinScreen, PublicVars.WIN_SCREEN_DRUATION);
+        Menu.SetCanHide(false);
     }
 
     public void SaveGame()

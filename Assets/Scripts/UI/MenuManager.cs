@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour
     public PageManager CurrentPage;
     public GameObject Background;
     public PageManager DeathScreen;
+    public PageManager WinScreen;
     public MenuController MenuController;
 
     public event Action<MenuManager> MenuShowed;
