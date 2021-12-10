@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour
     public bool CanHide = true;
     public Stack<PageManager> PrevPages;
     public PageManager CurrentPage;
+    public GameObject Background;
 
     public event Action<MenuManager> MenuShowed;
     public event Action<MenuManager> MenuHid;
@@ -37,6 +38,7 @@ public class MenuManager : MonoBehaviour
     {
         Showed = true;
         CurrentPage.ShowPage();
+        Background.SetActive(true);
         if (MenuShowed != null) MenuShowed(this);
     }
 
@@ -46,6 +48,7 @@ public class MenuManager : MonoBehaviour
 
         Showed = false;
         CurrentPage.HidePage();
+        Background.SetActive(false);
         if (MenuShowed != null) MenuHid(this);
     }
 

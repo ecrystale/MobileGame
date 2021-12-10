@@ -9,16 +9,13 @@ public class PageManager : MonoBehaviour
 
     public event Action<PageManager> PageShowed;
     public event Action<PageManager> PageHid;
+    protected void InvokePageShowed() { if (PageShowed != null) PageShowed(this); }
+    protected void InvokePageHid() { if (PageShowed != null) PageHid(this); }
 
     private void Start()
     {
         if (Showed) ShowPage();
         else HidePage();
-    }
-
-    public void HandleMenuToggle()
-    {
-
     }
 
     public void ShowPage()
