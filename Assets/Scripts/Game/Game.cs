@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(TransitionManager))]
@@ -12,8 +12,12 @@ public class Game : MonoBehaviour
     public TextAsset[] LevelFiles;
     public int CurrentStage = 0;
     public MenuManager Menu;
+    public PlayerHitbox PlayerHitbox;
+
+    public event Action<Level> GameOvered;
 
     private List<Level> _levels;
+    private Level _currentLevel;
     private EnemySpawner _currentSpawner;
 
     private void Awake()
@@ -30,6 +34,8 @@ public class Game : MonoBehaviour
         _currentSpawner = FindObjectOfType<EnemySpawner>();
         _currentSpawner.WaveCleared += HandleLastWaveCleared;
         _levels = new List<Level>();
+        PlayerHitbox.PlayerDied += HandlePlayerDied;
+        Menu.SetCanHide(false);
 
         foreach (TextAsset file in LevelFiles)
         {
@@ -45,8 +51,19 @@ public class Game : MonoBehaviour
     {
         _currentSpawner.Reset(level);
         _currentSpawner.Active = true;
+        _currentLevel = level;
+        PlayerHitbox.Player.SetActive(true);
+        PlayerHitbox.Dead = false;
+        Menu.SetCanHide(true);
         Menu.Back();
         Menu.HideMenu();
+    }
+
+    public void HandlePlayerDied(GameObject player)
+    {
+        if (GameOvered != null) GameOvered(_currentLevel);
+        Menu.LockDisplay(Menu.DeathScreen, PublicVars.DEATH_SCREEN_DRUATION);
+        Menu.SetCanHide(false);
     }
 
     public void HandleLastWaveCleared(EnemySpawner spawner, int wave, bool isLastWave)

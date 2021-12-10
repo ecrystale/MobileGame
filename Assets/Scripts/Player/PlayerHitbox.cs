@@ -1,22 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerHitbox : MonoBehaviour
 {
-
-    GameObject player;
+    public GameObject Player;
+    public event Action<GameObject> PlayerDied;
+    public bool Dead = false;
 
     void Start()
     {
-        player = transform.parent.gameObject;
+        Player = transform.parent.gameObject;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "EnemyShot")
+        if (other.gameObject.tag == "EnemyShot" && !Dead)
         {
-            Destroy(player);
+            Dead = true;
+            if (PlayerDied != null) PlayerDied(Player);
+            Player.SetActive(false);
         }
     }
 }

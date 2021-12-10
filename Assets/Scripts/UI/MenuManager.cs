@@ -6,9 +6,12 @@ public class MenuManager : MonoBehaviour
 {
     public bool Showed;
     public bool CanHide = true;
+    public bool Locked = false;
     public Stack<PageManager> PrevPages;
     public PageManager CurrentPage;
     public GameObject Background;
+    public PageManager DeathScreen;
+    public MenuController MenuController;
 
     public event Action<MenuManager> MenuShowed;
     public event Action<MenuManager> MenuHid;
@@ -40,6 +43,13 @@ public class MenuManager : MonoBehaviour
                 Back();
     }
 
+    public void SetCanHide(bool canHide)
+    {
+        if (CanHide == canHide) return;
+        CanHide = canHide;
+        MenuController.gameObject.SetActive(CanHide);
+    }
+
     public void ShowMenu()
     {
         Showed = true;
@@ -62,10 +72,29 @@ public class MenuManager : MonoBehaviour
         else ShowMenu();
     }
 
+    public void LockDisplay(PageManager page, float duration)
+    {
+        if (Locked) throw new InvalidOperationException("Cannot invoke LockDisplay on top of a locked menu");
+        if (!Showed) ShowMenu();
+        PushPage(page);
+        Locked = true;
+        StartCoroutine(UnlockDisplay(duration));
+    }
+
+    IEnumerator<WaitForSeconds> UnlockDisplay(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        if (Locked)
+        {
+            Locked = false;
+            Back();
+        }
+    }
+
     /// <summary>Push a page onto the page stack</summary>
     public void PushPage(PageManager page)
     {
-        if (CurrentPage == page) return;
+        if (Locked || CurrentPage == page) return;
         if (CurrentPage != null)
         {
             PrevPages.Push(CurrentPage);
@@ -78,6 +107,8 @@ public class MenuManager : MonoBehaviour
 
     public void Back()
     {
+        if (Locked) return;
+
         if (PrevPages.Count == 0)
         {
             HideMenu();

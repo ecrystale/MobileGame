@@ -13,6 +13,7 @@ public class PublicVars : MonoBehaviour
     public const float DEBOUNCE_INTERVAL = 0.2f;
     public const float WAVE_DEFAULT_INTERVAL = 6f;
     public const float WAVE_INIT_INTERVAL = 2f;
+    public const float DEATH_SCREEN_DRUATION = 2.6f;
 
     public static TransitionManager TransitionManager;
     public static string PlayerDataFile = "data.json";
