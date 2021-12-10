@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class LevelPage : MonoBehaviour
@@ -9,7 +10,7 @@ public class LevelPage : MonoBehaviour
     public GameObject LevelButtonPrefab;
     public PageManager Page;
 
-    private void Awake()
+    public void Setup()
     {
         float numLevels = (EndLevel - StartLevel);
         int numRow = Mathf.CeilToInt(numLevels / LevelsPerRow);
@@ -17,7 +18,7 @@ public class LevelPage : MonoBehaviour
         {
             int baseLevel = i * LevelsPerRow;
             LevelGroup levelGroup = Instantiate(LevelGroupPrefab, transform).GetComponent<LevelGroup>();
-            levelGroup.Setup(baseLevel, baseLevel + LevelsPerRow - 1, LevelButtonPrefab, Page);
+            levelGroup.Setup(baseLevel, Math.Min(baseLevel + LevelsPerRow - 1, EndLevel), LevelButtonPrefab, Page);
         }
     }
 }

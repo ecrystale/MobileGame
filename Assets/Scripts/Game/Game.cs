@@ -54,6 +54,10 @@ public class Game : MonoBehaviour
             Level level = LevelParser.ParseLevelFromFile(file, _currentSpawner.spawnpts.Length, _currentSpawner.enemy.Length);
             _levels.Add(level.Info.ID, level);
         }
+
+        Menu.LevelPage.StartLevel = 0;
+        Menu.LevelPage.EndLevel = _levels.Count - 1;
+        Menu.LevelPage.Setup();
     }
 
     public void Continue()

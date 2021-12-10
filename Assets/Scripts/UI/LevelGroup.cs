@@ -18,6 +18,9 @@ public class LevelGroup : MonoBehaviour
             LevelButtons.Add(button);
             button.levelIDToLoad = i;
             button.Text.text = $"{i + 1}";
+            button.Button.interactable = i <= Game.CurrentGame.LevelProgress;
+            // Subcribe the button to ProgressMade in order to update its state
+            Game.CurrentGame.ProgressMade += button.HandleProgress;
             foreach (UIComponent component in button.Components)
             {
                 component.page = page;

@@ -2,8 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class LevelButton : TimeoutBehaviour
+public class LevelButton : ButtonBehaviour
 {
     public Button Button { get; private set; }
     public Text Text;
@@ -16,15 +15,19 @@ public class LevelButton : TimeoutBehaviour
         if (Text == null) throw new ArgumentNullException($"Text is missing on {gameObject.name}");
         Button = GetComponent<Button>();
         Components = GetComponents<UIComponent>();
-        Button.onClick.AddListener(HandleClick);
     }
 
-    public void HandleClick()
+    protected override void HandleClick()
     {
-        if (CheckAndReset(PublicVars.DEBOUNCE_INTERVAL))
+        if (Game.CurrentGame.LevelProgress >= levelIDToLoad)
         {
             Debug.Log($"Loading level {levelIDToLoad}...");
             Game.CurrentGame.LoadLevel(levelIDToLoad);
         }
+    }
+
+    public void HandleProgress(int level)
+    {
+        Button.interactable = level >= levelIDToLoad;
     }
 }
