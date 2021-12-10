@@ -14,7 +14,6 @@ public class EnemySpawner : MonoBehaviour
 
     [Tooltip("It is not used in the actual gameplay")]
     public TextAsset PreviewLevel;
-    [ReadOnly]
     public Spawner[] SpawnersPreview;
 
     private Spawner[] _spawners;
