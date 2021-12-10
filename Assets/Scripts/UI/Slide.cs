@@ -16,9 +16,13 @@ public class Slide : UIComponent
         _startPos = transform.position + StartOffset;
         _endPos = transform.position;
         _speed = 1 / duration;
+        _dest = _endPos;
 
-        _dest = _startPos;
-        transform.position = _startPos;
+        if (!page.Showed)
+        {
+            _dest = _startPos;
+            transform.position = _startPos;
+        }
     }
 
     private void Update()

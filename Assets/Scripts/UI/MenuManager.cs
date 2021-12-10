@@ -56,6 +56,7 @@ public class MenuManager : MonoBehaviour
     {
         Showed = true;
         CurrentPage.ShowPage();
+        Time.timeScale = 0.3f;
         if (MenuShowed != null) MenuShowed(this);
     }
 
@@ -65,6 +66,7 @@ public class MenuManager : MonoBehaviour
 
         Showed = false;
         CurrentPage.HidePage();
+        Time.timeScale = 1;
         if (MenuShowed != null) MenuHid(this);
     }
 
