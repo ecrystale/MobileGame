@@ -10,13 +10,13 @@ public class Game : MonoBehaviour
     public PlayerData PlayerData { get; set; }
     //public string[] Levels = { "Main", "ModifyPatterns" };
     public TextAsset[] LevelFiles;
-    public int CurrentStage = 0;
+    public int CurrentLevel = 0;
     public MenuManager Menu;
     public PlayerHitbox PlayerHitbox;
 
     public event Action<Level> GameOvered;
 
-    private List<Level> _levels;
+    private SortedList<int, Level> _levels;
     private Level _currentLevel;
     private EnemySpawner _currentSpawner;
 
@@ -33,25 +33,31 @@ public class Game : MonoBehaviour
         PlayerData = PlayerData.LoadJsonData(PublicVars.PlayerDataFile);
         _currentSpawner = FindObjectOfType<EnemySpawner>();
         _currentSpawner.WaveCleared += HandleLastWaveCleared;
-        _levels = new List<Level>();
+        _levels = new SortedList<int, Level>();
         PlayerHitbox.PlayerDied += HandlePlayerDied;
         Menu.SetCanHide(false);
+        CurrentLevel = PlayerData.level;
 
         foreach (TextAsset file in LevelFiles)
         {
-            _levels.Add(LevelParser.ParseLevelFromFile(file, _currentSpawner.spawnpts.Length, _currentSpawner.enemy.Length));
+            Level level = LevelParser.ParseLevelFromFile(file, _currentSpawner.spawnpts.Length, _currentSpawner.enemy.Length);
+            _levels.Add(level.Info.ID, level);
         }
     }
 
-    public void LoadLevel(int id) => LoadLevel(_levels.Find(level => level.Info.ID == id));
+    public void Continue()
+    {
+        LoadLevel(CurrentLevel);
+    }
 
-    public void LoadLevel(string name) => LoadLevel(_levels.Find(level => level.Info.Name == name));
+    public void LoadLevel(int id) => LoadLevel(_levels[_levels.IndexOfKey(id)]);
 
     public void LoadLevel(Level level)
     {
         _currentSpawner.Reset(level);
         _currentSpawner.Active = true;
         _currentLevel = level;
+        CurrentLevel = level.Info.ID;
         PlayerHitbox.Player.SetActive(true);
         PlayerHitbox.Dead = false;
         Menu.SetCanHide(true);
@@ -70,7 +76,8 @@ public class Game : MonoBehaviour
     {
         if (!isLastWave) return;
         StopAllCoroutines();
-        //PublicVars.TransitionManager.FadeToScene(Levels[++CurrentStage], 1f);
+        PlayerData.level = CurrentLevel;
+        SaveGame();
     }
 
     public void SaveGame()
