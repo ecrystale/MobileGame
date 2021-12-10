@@ -18,6 +18,7 @@ public class Game : MonoBehaviour
 
     private SortedList<int, Level> _levels;
     private Level _currentLevel;
+    private int _levelProgress;
     private EnemySpawner _currentSpawner;
 
     private void Awake()
@@ -30,13 +31,22 @@ public class Game : MonoBehaviour
 
         CurrentGame = this;
         DontDestroyOnLoad(this);
+
+        // Load PlayerData
         PlayerData = PlayerData.LoadJsonData(PublicVars.PlayerDataFile);
+        _levelProgress = PlayerData.levelProgress;
+
+        // Setup spawner
         _currentSpawner = FindObjectOfType<EnemySpawner>();
         _currentSpawner.WaveCleared += HandleLastWaveCleared;
         _levels = new SortedList<int, Level>();
+
+        // Subscribe to PlayedDied event
         PlayerHitbox.PlayerDied += HandlePlayerDied;
+
+        // When there is no game in progress,
+        // disable menu toggling
         Menu.SetCanHide(false);
-        CurrentLevel = PlayerData.level;
 
         foreach (TextAsset file in LevelFiles)
         {
@@ -54,12 +64,16 @@ public class Game : MonoBehaviour
 
     public void LoadLevel(Level level)
     {
+        // Reset the spawner
         _currentSpawner.Reset(level);
         _currentSpawner.Active = true;
         _currentLevel = level;
-        CurrentLevel = level.Info.ID;
+
+        // Reset player states
         PlayerHitbox.Player.SetActive(true);
         PlayerHitbox.Dead = false;
+
+        // Navigate through the menu
         Menu.SetCanHide(true);
         Menu.Back();
         Menu.HideMenu();
@@ -76,7 +90,7 @@ public class Game : MonoBehaviour
     {
         if (!isLastWave) return;
         StopAllCoroutines();
-        PlayerData.level = CurrentLevel;
+        PlayerData.levelProgress = Math.Max(_currentLevel.Info.ID + 1, _levelProgress);
         SaveGame();
     }
 
