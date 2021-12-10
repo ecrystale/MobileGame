@@ -14,7 +14,7 @@ public class EnemySpawnerEditor : Editor
 
         EditorGUI.BeginChangeCheck();
 
-        _spawner._spawners = _spawner.ParseStages();
+        _spawner._spawners = LevelParser.ParseLevelFromFile(_spawner.textFile, _spawner.spawnpts.Length, _spawner.enemy.Length).Spawners;
 
         if (EditorGUI.EndChangeCheck())
         {

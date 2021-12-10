@@ -1,3 +1,6 @@
+id: 0
+name: main
+END OF META
 010 h 0 true 10
 0000 v 1 true 5
 111 1|-0.5 2 true -1

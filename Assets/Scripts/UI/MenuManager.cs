@@ -24,6 +24,12 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         PrevPages = new Stack<PageManager>();
+        StartCoroutine(DelayedShowMenu());
+    }
+
+    IEnumerator<WaitForEndOfFrame> DelayedShowMenu()
+    {
+        yield return new WaitForEndOfFrame();
         ShowMenu();
     }
 
@@ -38,7 +44,6 @@ public class MenuManager : MonoBehaviour
     {
         Showed = true;
         CurrentPage.ShowPage();
-        Background.SetActive(true);
         if (MenuShowed != null) MenuShowed(this);
     }
 
@@ -48,7 +53,6 @@ public class MenuManager : MonoBehaviour
 
         Showed = false;
         CurrentPage.HidePage();
-        Background.SetActive(false);
         if (MenuShowed != null) MenuHid(this);
     }
 

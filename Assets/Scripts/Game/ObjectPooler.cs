@@ -52,6 +52,17 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
+    public void CleanAll()
+    {
+        foreach (Pool pool in pools)
+        {
+            foreach (GameObject obj in poolDict[pool.tag])
+            {
+                obj.SetActive(false);
+            }
+        }
+    }
+
     public GameObject instantiateObjFromPool(string tag, Vector3 pos, Quaternion rotation)
     {
         if (poolDict == null)

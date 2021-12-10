@@ -10,6 +10,7 @@ public class PublicVars : MonoBehaviour
     public static float shotSize = 1f;
 
     public const float GENERAL_FADE_TIME = 0.5f;
+    public const float DEBOUNCE_INTERVAL = 0.2f;
 
     public static TransitionManager TransitionManager;
     public static string PlayerDataFile = "data.json";
