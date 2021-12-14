@@ -15,12 +15,14 @@ public class Bomb : MonoBehaviour
     private CircleCollider2D _collider;
     private SpriteRenderer _spriteRenderer;
     private Vector2 origScale;
+    private Color origColor;
 
     void Start()
     {
         _collider = GetComponent<CircleCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         origScale = transform.localScale;
+        origColor = _spriteRenderer.material.color;
     }
 
     void Update()
@@ -63,6 +65,7 @@ public class Bomb : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
+        _spriteRenderer.material.color = origColor;
         _spriteRenderer.enabled = false;
         transform.localScale = origScale;
         time = 0;
