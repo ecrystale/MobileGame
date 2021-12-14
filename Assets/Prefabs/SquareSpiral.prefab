@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
+  explode: {fileID: 7756032478232065651, guid: 7c49e0a8485504ce4a935502b754a4b9, type: 3}
 --- !u!61 &2645885984497037269
 BoxCollider2D:
   m_ObjectHideFlags: 0

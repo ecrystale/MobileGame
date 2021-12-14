@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public int MaxHealth = 100;
     public event Action<EnemyHealth> Destroyed;
+    public GameObject explode;
 
     private int _health;
     private bool destroyed = false;
@@ -28,6 +29,7 @@ public class EnemyHealth : MonoBehaviour
                 {
                     destroyed = true;
                     Destroyed(this);
+                    Instantiate(explode, transform.position, transform.rotation);
                 };
                 Destroy(gameObject);
             }
