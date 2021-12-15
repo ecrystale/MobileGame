@@ -12,9 +12,11 @@ public class PlayerMovement : MonoBehaviour
     private float lowerXBound;
     private float lowerYBound;
     private float upperYBound;
+    private Touch lastTouch;
 
     void Start()
     {
+        Input.multiTouchEnabled = false;
         upperXBound = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).x;
         lowerXBound = -Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).x;
         lowerYBound = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).y;
@@ -40,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
                 float newY = Camera.main.ScreenToWorldPoint(touch.position).y - yOffset;
 
                 transform.position = new Vector2(Mathf.Clamp(newX, lowerXBound, upperXBound), Mathf.Clamp(newY, lowerYBound, upperYBound));
-
             }
         }
     }

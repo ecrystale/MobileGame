@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
         _health = MaxHealth;
     }
 
+    // REFACTOR later, this is super redundant rn
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PlayerShot"))
@@ -34,5 +35,22 @@ public class EnemyHealth : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        if(other.gameObject.CompareTag("Bomb")){
+            Bomb bomb = other.GetComponent<Bomb>();
+            _health -= bomb.Damage;
+            if (_health <= 0)
+            {
+                // Invoke the destruction event
+                if (Destroyed != null && !destroyed)
+                {
+                    destroyed = true;
+                    Destroyed(this);
+                    Instantiate(explode, transform.position, transform.rotation);
+                };
+                Destroy(gameObject);
+            }
+        }
     }
+
 }
