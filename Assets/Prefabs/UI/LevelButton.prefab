@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Text: {fileID: 6723792665642852737}
   levelIDToLoad: 0
+  Components: []
 --- !u!1 &6723792665642852739
 GameObject:
   m_ObjectHideFlags: 0

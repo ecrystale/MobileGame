@@ -15,6 +15,9 @@ public class MenuManager : MonoBehaviour
     public LevelPage LevelPage;
     public MenuController MenuController;
 
+    public AudioClip swoosh;
+    AudioSource _audiosrc;
+
     public event Action<MenuManager> MenuShowed;
     public event Action<MenuManager> MenuHid;
 
@@ -29,6 +32,7 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         PrevPages = new Stack<PageManager>();
+        _audiosrc = GetComponent<AudioSource>();
         StartCoroutine(DelayedShowMenu());
     }
 
@@ -106,6 +110,7 @@ public class MenuManager : MonoBehaviour
         }
 
         CurrentPage = page;
+        _audiosrc.PlayOneShot(swoosh);
         if (Showed) CurrentPage.ShowPage();
     }
 
@@ -125,6 +130,7 @@ public class MenuManager : MonoBehaviour
         }
 
         CurrentPage = PrevPages.Pop();
+        _audiosrc.PlayOneShot(swoosh);
         if (Showed) CurrentPage.ShowPage();
     }
 }
