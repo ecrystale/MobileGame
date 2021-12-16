@@ -53,13 +53,13 @@ public class Bomb : MonoBehaviour
         }
         
         // cooldown
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
         StartCoroutine(fadeout());
     }
 
     private IEnumerator fadeout()
     {
-        for(float i = 1f; i >= -0.05f; i -= 0.05f)
+        for(float i = 1f; i >= -0.1f; i -= 0.1f)
         {
             Color c = _spriteRenderer.material.color;
             c.a = i;
