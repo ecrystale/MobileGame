@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    //  Can easily add damage instead of destroying other obj
-
-    public float time;
-    public float timeToGrow;
+    public int Damage = 100;
     public float maxRadius;
+    public float timeToGrow;
 
     public bool canGrow = true;
 
@@ -31,7 +29,6 @@ public class Bomb : MonoBehaviour
         {
             if(canGrow)
             {
-                _spriteRenderer.enabled = true;
                 StartCoroutine(activate());
             }
         }
@@ -39,37 +36,50 @@ public class Bomb : MonoBehaviour
 
     private IEnumerator activate()
     {
+        canGrow = false;
+        _spriteRenderer.enabled = true;
+        _collider.enabled = true;
+
         Vector2 startScale = transform.localScale;
         Vector2 maxScale = new Vector2(transform.localScale.x * maxRadius, transform.localScale.y * maxRadius);
 
-        while(time < timeToGrow)
+        float time = 0f;
+
+        while (time <= timeToGrow)
         {
             transform.localScale = Vector3.Lerp(startScale, maxScale, time / timeToGrow);
             time += Time.deltaTime;
             yield return null;
         }
-
-        canGrow = false;
-
+        
+        // cooldown
+        yield return new WaitForSeconds(0.4f);
         StartCoroutine(fadeout());
     }
 
     private IEnumerator fadeout()
     {
-        for(float i = 1f; i >= -0.05f; i -= 0.05f)
+        for(float i = 1f; i >= -0.1f; i -= 0.1f)
         {
             Color c = _spriteRenderer.material.color;
             c.a = i;
             _spriteRenderer.material.color = c;
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.01f);
         }
 
         _spriteRenderer.material.color = origColor;
         _spriteRenderer.enabled = false;
+        _collider.enabled = false;
         transform.localScale = origScale;
-        time = 0;
         canGrow = true;
     }
-}
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "EnemyShot")
+        {
+            other.gameObject.SetActive(false);
+        }
+    }
+}
