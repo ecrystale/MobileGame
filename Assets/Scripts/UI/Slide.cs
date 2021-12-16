@@ -27,7 +27,7 @@ public class Slide : UIComponent
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, _dest, _speed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, _dest, _speed * Time.unscaledDeltaTime);
     }
 
     public override void HandlePageShowed(PageManager page)

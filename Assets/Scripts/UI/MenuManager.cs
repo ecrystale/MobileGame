@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
     public bool Showed;
     public bool CanHide = true;
     public bool Locked = false;
+    public bool Paused { get; private set; }
     public Stack<PageManager> PrevPages;
     public PageManager CurrentPage;
     public GameObject Background;
@@ -60,7 +61,8 @@ public class MenuManager : MonoBehaviour
     {
         Showed = true;
         CurrentPage.ShowPage();
-        Time.timeScale = 0.6f;
+        Time.timeScale = 0.01f;
+        Paused = true;
         if (MenuShowed != null) MenuShowed(this);
     }
 
@@ -71,6 +73,7 @@ public class MenuManager : MonoBehaviour
         Showed = false;
         CurrentPage.HidePage();
         Time.timeScale = 1;
+        Paused = false;
         if (MenuShowed != null) MenuHid(this);
     }
 
@@ -89,9 +92,9 @@ public class MenuManager : MonoBehaviour
         StartCoroutine(UnlockDisplay(duration));
     }
 
-    IEnumerator<WaitForSeconds> UnlockDisplay(float duration)
+    IEnumerator<WaitForSecondsRealtime> UnlockDisplay(float duration)
     {
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSecondsRealtime(duration);
         if (Locked)
         {
             Locked = false;

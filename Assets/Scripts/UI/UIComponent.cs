@@ -26,9 +26,9 @@ public abstract class UIComponent : MonoBehaviour
         else StartCoroutine(HandleDelayExeuction(delay, callback));
     }
 
-    private IEnumerator<WaitForSeconds> HandleDelayExeuction(float delay, Action callback)
+    private IEnumerator<WaitForSecondsRealtime> HandleDelayExeuction(float delay, Action callback)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
         callback();
     }
 

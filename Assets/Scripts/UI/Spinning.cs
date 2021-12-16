@@ -6,6 +6,6 @@ public class Spinning : MonoBehaviour
 
     private void Update()
     {
-        gameObject.transform.Rotate(0, 0, AngularSpeed * Time.deltaTime);
+        gameObject.transform.Rotate(0, 0, AngularSpeed * Time.unscaledDeltaTime);
     }
 }

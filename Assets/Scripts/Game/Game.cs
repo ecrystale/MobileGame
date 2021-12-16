@@ -14,6 +14,7 @@ public class Game : MonoBehaviour
     public MenuManager Menu;
     public PlayerHitbox PlayerHitbox;
     public int LevelProgress { get; private set; }
+    public bool Paused => Menu != null && Menu.Paused;
 
     public event Action<Level> GameOvered;
     public event Action<int> ProgressMade;

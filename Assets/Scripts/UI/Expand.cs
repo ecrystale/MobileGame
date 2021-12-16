@@ -21,7 +21,7 @@ public class Expand : UIComponent
 
     private void Update()
     {
-        transform.localScale = Vector3.Lerp(transform.localScale, _destScale, _speed * Time.deltaTime);
+        transform.localScale = Vector3.Lerp(transform.localScale, _destScale, _speed * Time.unscaledDeltaTime);
     }
 
     public override void HandlePageShowed(PageManager page)

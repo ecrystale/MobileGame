@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount == 1)
+        if (Input.touchCount == 1 && !Game.CurrentGame.Paused)
         {
             Touch touch = Input.GetTouch(0);
 
