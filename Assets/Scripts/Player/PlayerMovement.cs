@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    private bool _isMoving;
     private Vector2 initialPos;
     private float xOffset;
     private float yOffset;
@@ -26,6 +24,13 @@ public class PlayerMovement : MonoBehaviour
         upperYBound = -Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).y;
     }
 
+    private void ResetOffsetFromTouchToPlayer(Touch touch)
+    {
+        initialPos = Camera.main.ScreenToWorldPoint(touch.position);
+        xOffset = initialPos.x - transform.position.x;
+        yOffset = initialPos.y - transform.position.y;
+    }
+
     void Update()
     {
         if (Input.touchCount == 1)
@@ -34,9 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began)
             {
-                initialPos = Camera.main.ScreenToWorldPoint(touch.position);
-                xOffset = initialPos.x - transform.position.x;
-                yOffset = initialPos.y - transform.position.y;
+                ResetOffsetFromTouchToPlayer(touch);
             }
 
             if (touch.phase == TouchPhase.Moved)
@@ -44,26 +47,39 @@ public class PlayerMovement : MonoBehaviour
                 float newX = Camera.main.ScreenToWorldPoint(touch.position).x - xOffset;
                 float newY = Camera.main.ScreenToWorldPoint(touch.position).y - yOffset;
 
-                transform.position = new Vector2(Mathf.Clamp(newX, lowerXBound, upperXBound), Mathf.Clamp(newY, lowerYBound, upperYBound));
+                Vector2 target = new Vector2(Mathf.Clamp(newX, lowerXBound, upperXBound), Mathf.Clamp(newY, lowerYBound, upperYBound));
+                float distance = Vector2.Distance(transform.position, target);
+
+                if (distance > PublicVars.FRAME_MOVEMENT_SPEED_CAP)
+                {
+                    ResetOffsetFromTouchToPlayer(touch);
+                    return;
+                }
+
+                transform.position = target;
             }
         }
 
         // print(closestEnemyDistance);
     }
 
-    public void setClosestEnemy(GameObject enemy){
+    public void setClosestEnemy(GameObject enemy)
+    {
         closestEnemy = enemy;
     }
 
-    public GameObject getClosestEnemy(){
+    public GameObject getClosestEnemy()
+    {
         return closestEnemy;
     }
 
-    public float getClosestEnemyDistance(){
+    public float getClosestEnemyDistance()
+    {
         return closestEnemyDistance;
     }
 
-    public void setClosestEnemyDistance(float dist){
+    public void setClosestEnemyDistance(float dist)
+    {
         closestEnemyDistance = dist;
     }
 
