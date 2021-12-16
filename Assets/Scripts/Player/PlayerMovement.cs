@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     private float upperYBound;
     private Touch lastTouch;
 
+    public GameObject closestEnemy;
+    public float closestEnemyDistance = float.PositiveInfinity;
+
     void Start()
     {
         Input.multiTouchEnabled = false;
@@ -44,6 +47,24 @@ public class PlayerMovement : MonoBehaviour
                 transform.position = new Vector2(Mathf.Clamp(newX, lowerXBound, upperXBound), Mathf.Clamp(newY, lowerYBound, upperYBound));
             }
         }
+
+        print(closestEnemyDistance);
+    }
+
+    public void setClosestEnemy(GameObject enemy){
+        closestEnemy = enemy;
+    }
+
+    public GameObject getClosestEnemy(){
+        return closestEnemy;
+    }
+
+    public float getClosestEnemyDistance(){
+        return closestEnemyDistance;
+    }
+
+    public void setClosestEnemyDistance(float dist){
+        closestEnemyDistance = dist;
     }
 
 }

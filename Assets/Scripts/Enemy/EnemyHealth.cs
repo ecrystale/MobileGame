@@ -23,33 +23,27 @@ public class EnemyHealth : MonoBehaviour
         {
             PlayerShotBehavior playerShotBehavior = other.GetComponent<PlayerShotBehavior>();
             _health -= playerShotBehavior.Damage;
-            if (_health <= 0)
-            {
-                // Invoke the destruction event
-                if (Destroyed != null && !destroyed)
-                {
-                    destroyed = true;
-                    Destroyed(this);
-                    Instantiate(explode, transform.position, transform.rotation);
-                };
-                Destroy(gameObject);
-            }
         }
 
         if(other.gameObject.CompareTag("Bomb")){
             Bomb bomb = other.GetComponent<Bomb>();
             _health -= bomb.Damage;
-            if (_health <= 0)
+        }
+
+        if (_health <= 0)
+        {
+            // Invoke the destruction event
+            if (Destroyed != null && !destroyed)
             {
-                // Invoke the destruction event
-                if (Destroyed != null && !destroyed)
-                {
-                    destroyed = true;
-                    Destroyed(this);
-                    Instantiate(explode, transform.position, transform.rotation);
-                };
-                Destroy(gameObject);
-            }
+                destroyed = true;
+                Destroyed(this);
+                Instantiate(explode, transform.position, transform.rotation);
+            };
+            Destroy(gameObject);
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<PlayerMovement>().setClosestEnemyDistance(float.PositiveInfinity);
+            
         }
     }
 
