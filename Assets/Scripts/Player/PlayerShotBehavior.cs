@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerShotBehavior : MonoBehaviour
 {
     public int Damage = 5;
-    private float shotSpeed = PublicVars.shotSpeed;
+    private float _shotSpeed;
     private float upperXBound;
     private float lowerXBound;
     private float lowerYBound;
@@ -23,11 +23,13 @@ public class PlayerShotBehavior : MonoBehaviour
         upperYBound = -Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).y;
 
         homing = true;
+        _shotSpeed = Game.CurrentGame.PlayerData.shotSpeed;
     }
 
     void Update()
     {
-        if(!homing){
+        if (!homing)
+        {
             if (transform.position.x > upperXBound || transform.position.x < lowerXBound ||
                 transform.position.y > upperYBound || transform.position.y < lowerYBound)
             {
@@ -35,17 +37,20 @@ public class PlayerShotBehavior : MonoBehaviour
             }
         }
 
-        if(homing){
+        if (homing)
+        {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-            if(player == null){
+            if (player == null)
+            {
                 return;
             }
 
             target = player.GetComponent<PlayerMovement>().getClosestEnemy();
 
-            if(target == null){
-                transform.Translate(Vector2.up * shotSpeed * Time.deltaTime);
+            if (target == null)
+            {
+                transform.Translate(Vector2.up * _shotSpeed * Time.deltaTime);
                 return;
             }
 
@@ -57,7 +62,7 @@ public class PlayerShotBehavior : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, -angularVelocity * rotateAmount), Space.Self);
         }
 
-        transform.Translate(Vector2.up * shotSpeed * Time.deltaTime);
+        transform.Translate(Vector2.up * _shotSpeed * Time.deltaTime);
 
         if (transform.position.x > upperXBound || transform.position.x < lowerXBound ||
            transform.position.y > upperYBound || transform.position.y < lowerYBound)

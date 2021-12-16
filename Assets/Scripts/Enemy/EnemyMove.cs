@@ -6,23 +6,26 @@ public class EnemyMove : MonoBehaviour
     public Vector3 endpos = new Vector3(0, 0, 0);
     public float speed;
 
-    private GameObject player;
+    private GameObject _player;
     private PlayerMovement _playerMovement;
     private float distanceFromPlayer;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        _playerMovement = player.GetComponent<PlayerMovement>();
+        _player = Game.CurrentGame.PlayerHitbox.Player;
+        _playerMovement = _player.GetComponent<PlayerMovement>();
         speed = 3f;
     }
 
     void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, endpos, speed * Time.deltaTime);
-        distanceFromPlayer = Vector2.Distance(player.transform.position, transform.position);
+        if (_player == null) return;
 
-        if(distanceFromPlayer < _playerMovement.getClosestEnemyDistance()){
+        transform.position = Vector3.Lerp(transform.position, endpos, speed * Time.deltaTime);
+        distanceFromPlayer = Vector2.Distance(_player.transform.position, transform.position);
+
+        if (distanceFromPlayer < _playerMovement.getClosestEnemyDistance())
+        {
             _playerMovement.setClosestEnemy(gameObject);
             _playerMovement.setClosestEnemyDistance(distanceFromPlayer);
         }
