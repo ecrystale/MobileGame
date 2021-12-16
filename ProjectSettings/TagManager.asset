@@ -8,6 +8,8 @@ TagManager:
   - EnemyShot
   - PlayerShot
   - Bomb
+  - Coin
+  - Magnet
   layers:
   - Default
   - TransparentFX

@@ -37,6 +37,11 @@ public class PlayerShotBehavior : MonoBehaviour
 
         if(homing){
             GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+            if(player == null){
+                return;
+            }
+
             target = player.GetComponent<PlayerMovement>().getClosestEnemy();
 
             if(target == null){

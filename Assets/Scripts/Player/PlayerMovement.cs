@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        print(closestEnemyDistance);
+        // print(closestEnemyDistance);
     }
 
     public void setClosestEnemy(GameObject enemy){

@@ -14,11 +14,16 @@ public class PlayerHitbox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "EnemyShot" && !Dead)
+        if (other.gameObject.CompareTag("EnemyShot") && !Dead)
         {
             Dead = true;
             if (PlayerDied != null) PlayerDied(Player);
             Player.SetActive(false);
+        }
+
+        // Just destroy for now
+        if(other.gameObject.CompareTag("Coin")){
+            Destroy(other);
         }
     }
 }
