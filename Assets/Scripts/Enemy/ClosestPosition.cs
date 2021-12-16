@@ -18,10 +18,17 @@ public class ClosestPosition : MonoBehaviour
     {
         distanceFromPlayer = Vector2.Distance(player.transform.position, transform.position);
 
-        if(distanceFromPlayer < _playerMovement.getClosestEnemyDistance()){
+        if(distanceFromPlayer < _playerMovement.getClosestEnemyDistance())
+        {
             _playerMovement.setClosestEnemy(gameObject);
             _playerMovement.setClosestEnemyDistance(distanceFromPlayer);
         }
+
+        if(_playerMovement.getClosestEnemy() == gameObject && distanceFromPlayer > _playerMovement.getClosestEnemyDistance())
+        {
+            _playerMovement.setClosestEnemyDistance(distanceFromPlayer);
+        }
+
 
         if(_playerMovement.getClosestEnemy() == gameObject){
             gameObject.GetComponent<SpriteRenderer>().material = a;

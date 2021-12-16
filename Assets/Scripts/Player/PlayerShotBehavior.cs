@@ -53,5 +53,11 @@ public class PlayerShotBehavior : MonoBehaviour
         }
 
         transform.Translate(Vector2.up * shotSpeed * Time.deltaTime);
+
+        if (transform.position.x > upperXBound || transform.position.x < lowerXBound ||
+           transform.position.y > upperYBound || transform.position.y < lowerYBound)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
