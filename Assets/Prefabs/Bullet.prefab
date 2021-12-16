@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 25
+  homing: 0
+  angularVelocity: 100
 --- !u!70 &438880808791119227
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

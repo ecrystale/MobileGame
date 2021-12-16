@@ -12,6 +12,7 @@ public class PlayerShotBehavior : MonoBehaviour
     private float upperYBound;
 
     public bool homing;
+    public int angularVelocity;
     private GameObject target;
 
     void Start()
@@ -48,7 +49,7 @@ public class PlayerShotBehavior : MonoBehaviour
 
             float rotateAmount = Vector3.Cross(direction, transform.up).z;
 
-            transform.Rotate(new Vector3(0, 0, -20 * rotateAmount), Space.Self);
+            transform.Rotate(new Vector3(0, 0, -angularVelocity * rotateAmount), Space.Self);
         }
 
         transform.Translate(Vector2.up * shotSpeed * Time.deltaTime);
