@@ -70,7 +70,7 @@ public class Bomb : MonoBehaviour
 
         _spriteRenderer.material.color = origColor;
         _spriteRenderer.enabled = false;
-        _collider.enabled = true;;
+        _collider.enabled = false;
         transform.localScale = origScale;
         canGrow = true;
     }
