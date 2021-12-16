@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerShotSpawner : MonoBehaviour
 {
-
-    public bool canFire = true;
     ObjectPooler objectPooler;
 
     void Start()

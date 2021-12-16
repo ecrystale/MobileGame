@@ -1,12 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShoot : MonoBehaviour
+public class PlayerShoot : TimeoutBehaviour
 {
-
+    public bool Firing = false;
     ArrayList shotSpawners = new ArrayList();
-    private float rateOfFire = PublicVars.rateOfFire;
 
     void Start()
     {
@@ -19,25 +17,15 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    void Update()
+    protected override void Update()
     {
-        if (Input.touchCount > 0)
+        base.Update();
+        if (Input.touchCount > 0 && CheckAndReset(Game.CurrentGame.PlayerData.rateOfFire))
         {
             foreach (Transform shotSpawner in shotSpawners)
             {
-                if (shotSpawner.GetComponent<PlayerShotSpawner>().canFire)
-                {
-                    StartCoroutine(shoot(shotSpawner));
-                }
+                shotSpawner.GetComponent<PlayerShotSpawner>().shoot();
             }
         }
-    }
-
-    IEnumerator shoot(Transform shotSpawner)
-    {
-        shotSpawner.GetComponent<PlayerShotSpawner>().canFire = false;
-        shotSpawner.GetComponent<PlayerShotSpawner>().shoot();
-        yield return new WaitForSeconds(rateOfFire);
-        shotSpawner.GetComponent<PlayerShotSpawner>().canFire = true;
     }
 }

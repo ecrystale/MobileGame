@@ -4,7 +4,7 @@ public class TimeoutBehaviour : MonoBehaviour
 {
     private float _timeout = 0f;
 
-    private void Update()
+    protected virtual void Update()
     {
         _timeout -= Time.deltaTime;
         if (_timeout <= 0) _timeout = 0;
