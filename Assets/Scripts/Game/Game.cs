@@ -118,6 +118,7 @@ public class Game : MonoBehaviour
         PlayerHitbox.Player.transform.position = PlayerSpawnPoint.transform.position;
         PlayerHitbox.Player.SetActive(true);
         PlayerHitbox.Dead = false;
+        ObjectPooler.CleanAll();
 
         // Navigate through the menu
         Menu.MainPage.Setup();

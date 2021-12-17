@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerShotBehavior : MonoBehaviour
+public class PlayerShotBehavior : ShotBehaviour
 {
     public int angularVelocity;
 

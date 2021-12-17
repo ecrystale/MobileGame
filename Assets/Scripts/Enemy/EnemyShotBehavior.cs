@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShotBehavior : MonoBehaviour
+public class EnemyShotBehavior : ShotBehaviour
 {
-
     private float shotSpeed;
     private Vector2 direction;
+    private float _deltaTime => IsUI ? Time.unscaledDeltaTime : Time.deltaTime;
 
     void Update()
     {
@@ -14,7 +14,7 @@ public class EnemyShotBehavior : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        transform.Translate(direction * shotSpeed * Time.deltaTime);
+        transform.Translate(direction * shotSpeed * _deltaTime);
     }
 
     public void setDirection(Vector2 direction) { this.direction = direction; }

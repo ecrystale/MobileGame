@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Emitter : MonoBehaviour
 {
-
+    public bool IsUI = false;
     private ObjectPooler objectPooler;
     private bool canShoot = true;
 
@@ -21,6 +21,7 @@ public class Emitter : MonoBehaviour
 
     [SerializeField]
     private int angularVelocity = 180;
+    private float deltaTime => IsUI ? Time.unscaledDeltaTime : Time.deltaTime;
 
     void Start()
     {
@@ -29,8 +30,8 @@ public class Emitter : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(0, 0, angularVelocity * Time.deltaTime);
-        if (canShoot)
+        transform.Rotate(0, 0, angularVelocity * deltaTime);
+        if (canShoot && (!IsUI || !Game.CurrentGame.IsInGame))
         {
             StartCoroutine(shoot());
         }
@@ -51,13 +52,14 @@ public class Emitter : MonoBehaviour
             Vector3 shotVector = new Vector3(xDir, yDir, 0f);
             Vector2 shotDirection = (shotVector - transform.position).normalized;
 
-            GameObject shot = objectPooler.instantiateObjFromPool("EnemyShotType1", transform.position, transform.rotation);
+            GameObject shot = objectPooler.instantiateObjFromPool("EnemyShotType1", transform.position, transform.rotation, IsUI);
             shot.GetComponent<EnemyShotBehavior>().setDirection(shotDirection);
             shot.GetComponent<EnemyShotBehavior>().setShotSpeed(shotSpeed);
             initialAngle += thetaStep;
         }
 
-        yield return new WaitForSeconds(rateOfFire);
+        if (IsUI) yield return new WaitForSecondsRealtime(rateOfFire);
+        else yield return new WaitForSeconds(rateOfFire);
 
         canShoot = true;
     }

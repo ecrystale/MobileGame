@@ -63,7 +63,7 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public GameObject instantiateObjFromPool(string tag, Vector3 pos, Quaternion rotation)
+    public GameObject instantiateObjFromPool(string tag, Vector3 pos, Quaternion rotation, bool isUI = false)
     {
         if (poolDict == null)
         {
@@ -80,6 +80,9 @@ public class ObjectPooler : MonoBehaviour
         curr.SetActive(true);
         curr.transform.position = pos;
         curr.transform.rotation = rotation;
+
+        ShotBehaviour shot = curr.GetComponent<ShotBehaviour>();
+        shot.IsUI = isUI;
 
         poolDict[tag].Enqueue(curr);
 
