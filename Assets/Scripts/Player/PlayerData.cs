@@ -1,6 +1,11 @@
 using System.IO;
 using UnityEngine;
 
+public enum Ability
+{
+    Boom = 0, Magnet = 1, Homing = 2, Bouncy = 3, Split = 4
+}
+
 /// <summary>A serializable class to hold player data</summary>
 [System.Serializable]
 public class PlayerData
@@ -13,9 +18,8 @@ public class PlayerData
     public int NumberOfBullets = 2;
     public int LevelProgress = 0;
 
-    public bool HasHoming = false;
-    public bool HasBoom = false;
-    public bool HasMagnet = false;
+    public bool[] AbilitiesOwned = { false, false, false, false, false };
+    public bool[] AbilitiesEnabled = { false, false, false, false, false };
     public int BouncyBulletsLevel = 0;
     public bool SplittingBullets = false;
 

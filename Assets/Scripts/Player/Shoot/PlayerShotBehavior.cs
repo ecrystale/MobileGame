@@ -6,8 +6,8 @@ public class PlayerShotBehavior : MonoBehaviour
 
     public int Damage => Game.CurrentGame.PlayerData.Damage;
     private float _shotSpeed => Game.CurrentGame.PlayerData.ShotSpeed;
-    private bool _homing => Game.CurrentGame.PlayerData.HasHoming;
-    private int _totalBouncingCount => Game.CurrentGame.PlayerData.BouncyBulletsLevel;
+    private bool _homing => Game.CurrentGame.PlayerData.AbilitiesEnabled[((int)Ability.Homing)];
+    private int _totalBouncingCount => Game.CurrentGame.PlayerData.AbilitiesEnabled[((int)Ability.Bouncy)] ? 0 : Game.CurrentGame.PlayerData.BouncyBulletsLevel;
     private WorldBound bound => Game.CurrentGame.WorldBound;
 
     private GameObject target;

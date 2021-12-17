@@ -25,7 +25,7 @@ public class Bomb : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount == 2 && Game.CurrentGame.PlayerData.HasBoom)
+        if (Input.touchCount == 2 && Game.CurrentGame.PlayerData.AbilitiesEnabled[((int)Ability.Boom)])
         {
             if (canGrow)
             {
