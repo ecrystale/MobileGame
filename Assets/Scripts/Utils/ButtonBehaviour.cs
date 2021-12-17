@@ -4,9 +4,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public abstract class ButtonBehaviour : TimeoutBehaviour
 {
+    public Button Button;
     private void Start()
     {
-        GetComponent<Button>().onClick.AddListener(HandlerWrapper);
+        Button = GetComponent<Button>();
+        Button.onClick.AddListener(HandlerWrapper);
     }
 
     private void HandlerWrapper()

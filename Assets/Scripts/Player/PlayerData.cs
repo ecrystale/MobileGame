@@ -13,7 +13,7 @@ public class PlayerData
     private Game _g => Game.CurrentGame;
     public float RateOfFire => _g.Upgradable(Purchasable.FireRate).CurrentPower;
     public float ShotSpeed => _g.Upgradable(Purchasable.BulletSpeed).CurrentPower;
-    public int Damage => _g.Upgradable(Purchasable.Damange).CurrentPowerInt;
+    public int Damage => _g.Upgradable(Purchasable.Damage).CurrentPowerInt;
     public int NumberOfBullets => _g.Upgradable(Purchasable.BulletsCount).CurrentPowerInt;
     public bool Own(int index) => index > 0 && index < UpgradesLevels.Length && UpgradesLevels[index] > 0;
 

@@ -2,7 +2,7 @@ using System.IO;
 using UnityEngine;
 public enum Purchasable
 {
-    FireRate = 0, BulletSpeed = 1, Damange = 2, BulletsCount = 3, Boom = 4, Magnet = 5, Homing = 6, Bouncy = 7, Split = 8
+    FireRate = 0, BulletSpeed = 1, Damage = 2, BulletsCount = 3, Boom = 4, Magnet = 5, Homing = 6, Bouncy = 7, Split = 8
 }
 
 public class PublicVars : MonoBehaviour

@@ -15,6 +15,7 @@ public class MenuManager : MonoBehaviour
     public PageManager WinScreen;
     public SummaryPage SummaryPage;
     public LevelPage LevelPage;
+    public ShopPage ShopPage;
     public MenuController MenuController;
 
     public AudioClip swoosh;
