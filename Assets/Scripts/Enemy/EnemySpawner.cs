@@ -9,6 +9,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] enemy;
     public GameObject[] spawnpts;
     public bool Active = false;
+    public Transform coinPrefab;
     public event Action<EnemySpawner, int, bool> WaveCleared;
     public event Action<EnemySpawner, int, bool> WaveEntered;
     public event Action<EnemySpawner> LevelInitialized;
@@ -102,7 +103,8 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void HandleDestroyedOrGone(int wave, GameObject enemy, bool isLastWave, int coinReward, bool destroyed)
-    {
+    {   
+        Instantiate(coinPrefab, enemy.transform.position, Quaternion.identity);
         _waveEnemiesCount[wave]--;
         _activeEnemies.Remove(enemy.gameObject);
         if (_waveEnemiesCount[wave] == 0)

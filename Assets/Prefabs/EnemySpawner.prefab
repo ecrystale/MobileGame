@@ -48,16 +48,7 @@ MonoBehaviour:
   spawnpts:
   - {fileID: 0}
   - {fileID: 0}
-  interval: 2
-  filename: DemoStage
-  Spawners:
-  - SpawnPointIndex: 1
-    Enemies: 0000000000000000000000000000000000000000
-    Direction: {x: 1, y: 0}
-    OffsetBetween: 1
-    Centralized: 0
-  - SpawnPointIndex: 0
-    Enemies: 0000000000000000
-    Direction: {x: 0, y: 1}
-    OffsetBetween: 1
-    Centralized: 0
+  Active: 0
+  coinPrefab: {fileID: 2719515578958720455, guid: 0b56eb75fa85b5842b40eae0eea970f2, type: 3}
+  PreviewLevel: {fileID: 0}
+  SpawnersPreview: []
