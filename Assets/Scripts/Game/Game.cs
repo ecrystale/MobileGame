@@ -15,6 +15,7 @@ public class Game : MonoBehaviour
     public PlayerHitbox PlayerHitbox;
     public int LevelProgress { get; private set; }
     public bool Paused => Menu != null && Menu.Paused;
+    public SummaryData CurrentLevelSummary;
 
     public event Action<Level> GameOvered;
     public event Action<int> ProgressMade;
@@ -79,6 +80,9 @@ public class Game : MonoBehaviour
         PlayerHitbox.Player.SetActive(true);
         PlayerHitbox.Dead = false;
 
+        // Initialize level summary
+        CurrentLevelSummary = new SummaryData();
+
         // Navigate through the menu
         Menu.SetCanHide(true);
         Menu.Back();
@@ -88,6 +92,7 @@ public class Game : MonoBehaviour
     public void HandlePlayerDied(GameObject player)
     {
         if (GameOvered != null) GameOvered(_currentLevel);
+        prepareSummary();
         Menu.LockDisplay(Menu.DeathScreen, PublicVars.DEATH_SCREEN_DRUATION);
         Menu.SetCanHide(false);
     }
@@ -103,6 +108,7 @@ public class Game : MonoBehaviour
             LevelProgress = nextLevel;
             ProgressMade(nextLevel);
         }
+        prepareSummary();
         SaveGame();
         Menu.LockDisplay(Menu.WinScreen, PublicVars.WIN_SCREEN_DRUATION);
         Menu.SetCanHide(false);
@@ -111,5 +117,11 @@ public class Game : MonoBehaviour
     public void SaveGame()
     {
         PlayerData.SaveJsonData(PublicVars.PlayerDataFile);
+    }
+
+    public void prepareSummary()
+    {
+        Menu.SummaryPage.Setup(CurrentLevelSummary);
+        Menu.PushPage(Menu.SummaryPage);
     }
 }
