@@ -1,9 +1,0 @@
-id: 4
-name: Stage4
-END OF META
-11 v 3 false 6 1
-11 v 4 false 6 1
-77 h 1 true 5 2
-2 h 0 true 5 1
-777 h 0 true 5 2
-6 h 1 true -1 2

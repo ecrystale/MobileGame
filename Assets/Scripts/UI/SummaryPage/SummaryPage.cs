@@ -9,7 +9,7 @@ public class SummaryPage : PageManager
 
     public void Setup(SummaryData data)
     {
-        Title.text = data.Cleared ? $"[{data.ID}] {data.LevelName} Cleared" : "Game Over";
+        Title.text = data.Cleared ? $"[{data.ID + 1}] {data.LevelName} Cleared" : "Game Over";
         RestartButton.Text.text = data.Cleared ? "Continue" : "Restart";
         RestartButton.levelIDToLoad = data.Cleared ? data.ID + 1 : data.ID;
         RestartButton.gameObject.SetActive(Game.CurrentGame.IsLevelValid(RestartButton.levelIDToLoad));

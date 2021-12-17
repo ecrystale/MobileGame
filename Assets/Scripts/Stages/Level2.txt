@@ -1,0 +1,9 @@
+id: 1
+name: Level2
+END OF META
+111 h 1 false 5 1
+33 h 1 false -1 1
+22 1|5 0 true 10 1
+000 h 3 true 5 1
+3 v 6 true -1 1
+8 h 1 false -1 5
