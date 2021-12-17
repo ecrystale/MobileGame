@@ -3298,7 +3298,6 @@ MonoBehaviour:
   LevelFiles:
   - {fileID: 4900000, guid: 1f983a96836ebf44696a34cb5889a7ba, type: 3}
   - {fileID: 4900000, guid: 66d57930c2f1b214c947bf9aa6f2f90e, type: 3}
-  CurrentLevel: 0
   Menu: {fileID: 495837736}
   PlayerHitbox: {fileID: 1624860780}
   PlayerSpawnPoint: {fileID: 1745478728}
@@ -5693,6 +5692,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8623369222473903763, guid: 1c00a986f62c99a438a9a41b72a4025c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8623369223741590160, guid: 1c00a986f62c99a438a9a41b72a4025c, type: 3}
       propertyPath: m_Enabled
       value: 0
