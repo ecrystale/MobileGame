@@ -10,7 +10,6 @@ public class Game : MonoBehaviour
     public PlayerData PlayerData { get; set; }
     //public string[] Levels = { "Main", "ModifyPatterns" };
     public TextAsset[] LevelFiles;
-    public int CurrentLevel = 0;
     public MenuManager Menu;
     public PlayerHitbox PlayerHitbox;
     public GameObject PlayerSpawnPoint;
@@ -71,7 +70,10 @@ public class Game : MonoBehaviour
 
     public void Continue()
     {
-        LoadLevel(CurrentLevel);
+        if (_levels.ContainsKey(LevelProgress))
+            LoadLevel(LevelProgress);
+        else
+            LoadLevel(_levels[_levels.Count - 1]);
     }
 
     public void LoadLevel(int id) => LoadLevel(_levels[_levels.IndexOfKey(id)]);
