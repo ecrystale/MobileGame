@@ -48,15 +48,15 @@ public class Game : MonoBehaviour
 
         // 9 is the number of enums in Purchasable
         Upgradables = new Upgradable[PublicVars.MAX_PURCHASABLES];
-        Upgradables[((int)Purchasable.Boom)] = new Upgradable("Boom", 100, 15, 1, 5, 1, 2, 3, PlayerData.UpgradesLevels[((int)Purchasable.Boom)], true);
-        Upgradables[((int)Purchasable.Split)] = new Upgradable("Split Shots", 0, 1, 1, 20, 1, 2, 1, PlayerData.UpgradesLevels[((int)Purchasable.Split)], true);
-        Upgradables[((int)Purchasable.Bouncy)] = new Upgradable("Bouncy Bullets", 0, 1, 1, 5, 1, 2, 3, PlayerData.UpgradesLevels[((int)Purchasable.Bouncy)], true);
-        Upgradables[((int)Purchasable.Homing)] = new Upgradable("Homing", 0, 1, 1, 20, 1, 2, 1, PlayerData.UpgradesLevels[((int)Purchasable.Homing)], true);
-        Upgradables[((int)Purchasable.Magnet)] = new Upgradable("Magnet", 0, 1, 1, 20, 1, 2, 1, PlayerData.UpgradesLevels[((int)Purchasable.Magnet)], true);
-        Upgradables[((int)Purchasable.Damage)] = new Upgradable("Damage", 15, 5, 1, 5, 1, 1.5f, 5, PlayerData.UpgradesLevels[((int)Purchasable.Damage)]);
-        Upgradables[((int)Purchasable.FireRate)] = new Upgradable("Fire Rate", 0.1f, 0, 0.7f, 5, 1, 1.5f, 5, PlayerData.UpgradesLevels[((int)Purchasable.FireRate)]);
-        Upgradables[((int)Purchasable.BulletSpeed)] = new Upgradable("Bullet Speed", 12f, 1, 1, 5, 1, 2, 5, PlayerData.UpgradesLevels[((int)Purchasable.BulletSpeed)]);
-        Upgradables[((int)Purchasable.BulletsCount)] = new Upgradable("Bullet Count", 2, 1, 1, 5, 1, 2, 5, PlayerData.UpgradesLevels[((int)Purchasable.BulletsCount)]);
+        Upgradables[((int)Purchasable.Boom)] = new Upgradable(Purchasable.Boom, "Boom", 100, 15, 1, 50, 0, 2, 3, PlayerData.UpgradesLevels[((int)Purchasable.Boom)], true);
+        Upgradables[((int)Purchasable.Split)] = new Upgradable(Purchasable.Split, "Split Shots", 0, 1, 1, 40, 0, 2, 1, PlayerData.UpgradesLevels[((int)Purchasable.Split)], true);
+        Upgradables[((int)Purchasable.Bouncy)] = new Upgradable(Purchasable.Bouncy, "Bouncy Shots", 0, 1, 1, 40, 0, 2, 3, PlayerData.UpgradesLevels[((int)Purchasable.Bouncy)], true);
+        Upgradables[((int)Purchasable.Homing)] = new Upgradable(Purchasable.Homing, "Homing", 0, 1, 1, 50, 0, 2, 1, PlayerData.UpgradesLevels[((int)Purchasable.Homing)], true);
+        Upgradables[((int)Purchasable.Magnet)] = new Upgradable(Purchasable.Magnet, "Magnet", 0, 1, 1, 20, 0, 2, 1, PlayerData.UpgradesLevels[((int)Purchasable.Magnet)], true);
+        Upgradables[((int)Purchasable.Damage)] = new Upgradable(Purchasable.Damage, "Damage", 15, 5, 1, 5, 15, 1.5f, 5, PlayerData.UpgradesLevels[((int)Purchasable.Damage)]);
+        Upgradables[((int)Purchasable.FireRate)] = new Upgradable(Purchasable.FireRate, "Fire Rate", 0.15f, -0.01f, 0.95f, 20, 10, 1.5f, 5, PlayerData.UpgradesLevels[((int)Purchasable.FireRate)]);
+        Upgradables[((int)Purchasable.BulletSpeed)] = new Upgradable(Purchasable.BulletSpeed, "Bullet Speed", 12f, 1, 1, 10, 5, 2, 5, PlayerData.UpgradesLevels[((int)Purchasable.BulletSpeed)]);
+        Upgradables[((int)Purchasable.BulletsCount)] = new Upgradable(Purchasable.BulletsCount, "Bullet Count", 2, 1, 1, 50, 10, 2, 5, PlayerData.UpgradesLevels[((int)Purchasable.BulletsCount)]);
 
         // Setup spawner
         _currentSpawner = FindObjectOfType<EnemySpawner>();
@@ -129,6 +129,7 @@ public class Game : MonoBehaviour
         PlayerData.Coins -= upgradable.CurrentPrice;
         upgradable.Upgrade();
         PlayerData.UpgradesLevels[((int)purchasable)] = upgradable.Level;
+        if (CoinsChanged != null) CoinsChanged(PlayerData.Coins);
         SaveGame();
     }
 

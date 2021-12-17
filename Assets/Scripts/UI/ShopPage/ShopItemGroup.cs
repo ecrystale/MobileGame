@@ -15,15 +15,24 @@ public class ShopItemGroup : MonoBehaviour
     public void Setup(Upgradable upgradable)
     {
         _upgradable = upgradable;
-        ToggleButton.gameObject.SetActive(_upgradable.IsAbility);
+
+        if (upgradable.IsAbility)
+        {
+            ToggleButton.Ability = (Ability)(upgradable.Purchasable - ((int)Ability.Split));
+            ToggleButton.Enabled = Game.CurrentGame.PlayerData.AbilitiesEnabled[((int)_upgradable.Purchasable - (int)Ability.Split)];
+            ToggleButton.UpdateText();
+        }
+
+        PurchaseButton.purchasable = upgradable.Purchasable;
         Game.CurrentGame.CoinsChanged += HandleCoinsChanged;
-        PurchaseButton.Purchased += HandlePurchase;
         PurchaseButton.Purchased += Game.CurrentGame.HandlePurchase;
+        PurchaseButton.Purchased += HandlePurchase;
         Refresh();
     }
 
     private void Refresh()
     {
+        ToggleButton.gameObject.SetActive(_upgradable.IsAbility && _upgradable.Level > 0);
         ItemName.text = _upgradable.Name;
         PriceTag.text = _upgradable.CurrentPrice.ToString();
         ItemLevel.text = $"{_upgradable.Level}/{_upgradable.MaxLevel}";

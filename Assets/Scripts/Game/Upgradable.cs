@@ -1,5 +1,8 @@
+using UnityEngine;
+
 public class Upgradable
 {
+    public Purchasable Purchasable;
     public string Name;
     public int BasePrice;
     public int PriceIncrement;
@@ -16,8 +19,9 @@ public class Upgradable
     public int CurrentPowerInt => ((int)CurrentPower);
     public bool CanUpgrade => Level < MaxLevel && Game.CurrentGame.PlayerData.Coins > CurrentPrice;
 
-    public Upgradable(string name, float basePower, float powerIncrement, float powerMultiplier, int basePrice, int priceIncrement, float priceMultiplier = 1, int maxLevel = 1, int level = 0, bool isAbility = false)
+    public Upgradable(Purchasable purchasable, string name, float basePower, float powerIncrement, float powerMultiplier, int basePrice, int priceIncrement, float priceMultiplier = 1, int maxLevel = 1, int level = 0, bool isAbility = false)
     {
+        Purchasable = purchasable;
         Name = name;
         BasePower = CurrentPower = basePower;
         PowerIncrement = powerIncrement;
@@ -41,7 +45,9 @@ public class Upgradable
 
     public void Upgrade()
     {
+        if (Level > MaxLevel) return;
+        Level++;
         CurrentPrice = ((int)(CurrentPrice * PriceMultiplier)) + PriceIncrement;
-        CurrentPower = ((int)(CurrentPower * PowerMultiplier)) + PowerIncrement;
+        CurrentPower = (CurrentPower * PowerMultiplier) + PowerIncrement;
     }
 }
