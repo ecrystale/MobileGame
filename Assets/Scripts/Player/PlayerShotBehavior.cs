@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerShotBehavior : MonoBehaviour
 {
-    public int Damage = 5;
+    public int Damage = 25;
     private float _shotSpeed;
     private float upperXBound;
     private float lowerXBound;
@@ -40,7 +40,6 @@ public class PlayerShotBehavior : MonoBehaviour
         if (homing)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-
             if (player == null)
             {
                 return;

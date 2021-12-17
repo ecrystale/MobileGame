@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10b95c57a995074479e5b253aefd271b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 5
+  Damage: 25
   homing: 0
   angularVelocity: 100
 --- !u!70 &438880808791119227

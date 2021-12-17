@@ -13,7 +13,6 @@ public class EnemyMove : MonoBehaviour
     void Start()
     {
         _player = Game.CurrentGame.PlayerHitbox.Player;
-        _playerMovement = _player.GetComponent<PlayerMovement>();
         speed = 3f;
     }
 
@@ -22,14 +21,6 @@ public class EnemyMove : MonoBehaviour
         if (_player == null) return;
 
         transform.position = Vector3.Lerp(transform.position, endpos, speed * Time.deltaTime);
-        distanceFromPlayer = Vector2.Distance(_player.transform.position, transform.position);
-
-        if (distanceFromPlayer < _playerMovement.getClosestEnemyDistance())
-        {
-            _playerMovement.setClosestEnemy(gameObject);
-            _playerMovement.setClosestEnemyDistance(distanceFromPlayer);
-        }
-
     }
 
     public void Spawner(Vector3 pos, Vector3 exitpos, float duration)
