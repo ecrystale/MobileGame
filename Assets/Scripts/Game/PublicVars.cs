@@ -1,5 +1,9 @@
 using System.IO;
 using UnityEngine;
+public enum Purchasable
+{
+    FireRate = 0, BulletSpeed = 1, Damange = 2, BulletsCount = 3, Boom = 4, Magnet = 5, Homing = 6, Bouncy = 7, Split = 8
+}
 
 public class PublicVars : MonoBehaviour
 {
@@ -13,6 +17,7 @@ public class PublicVars : MonoBehaviour
     public const float FRAME_MOVEMENT_SPEED_CAP = 1f;
     public const float WIN_DELAY = 2f;
     public const float LOSE_DELAY = 0.2f;
+    public const int MAX_PURCHASABLES = 9;
 
     public static TransitionManager TransitionManager;
     public static string PlayerDataFile = "data.json";

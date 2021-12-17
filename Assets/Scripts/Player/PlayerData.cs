@@ -10,15 +10,19 @@ public enum Ability
 [System.Serializable]
 public class PlayerData
 {
-    public float RateOfFire = 0.1f;
-    public float ShotSpeed = 12f;
+    private Game _g => Game.CurrentGame;
+    public float RateOfFire => _g.Upgradable(Purchasable.FireRate).CurrentPower;
+    public float ShotSpeed => _g.Upgradable(Purchasable.BulletSpeed).CurrentPower;
+    public int Damage => _g.Upgradable(Purchasable.Damange).CurrentPowerInt;
+    public int NumberOfBullets => _g.Upgradable(Purchasable.BulletsCount).CurrentPowerInt;
+    public bool Own(int index) => index > 0 && index < UpgradesLevels.Length && UpgradesLevels[index] > 0;
+
+    public int Coins = 0;
     public float ShotSize = 1f;
     public float BulletSpawnOffset = 0.3f;
-    public int Damage = 15;
-    public int NumberOfBullets = 2;
     public int LevelProgress = 0;
 
-    public bool[] AbilitiesOwned = { false, false, false, false, false };
+    public int[] UpgradesLevels = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     public bool[] AbilitiesEnabled = { false, false, false, false, false };
     public int BouncyBulletsLevel = 0;
     public bool SplittingBullets = false;
