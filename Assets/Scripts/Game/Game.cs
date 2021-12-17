@@ -19,6 +19,7 @@ public class Game : MonoBehaviour
     public bool Paused => Menu != null && Menu.Paused;
     public bool IsInGame { get; private set; }
     public SummaryData CurrentLevelSummary;
+    public WorldBound WorldBound;
 
     public event Action<Level> GameOvered;
     public event Action<int> ProgressMade;
@@ -162,6 +163,11 @@ public class Game : MonoBehaviour
     {
         Menu.SummaryPage.Setup(CurrentLevelSummary);
         Menu.PushPage(Menu.SummaryPage);
+    }
+
+    private void Start()
+    {
+        WorldBound = new WorldBound();
     }
 
     private void Update()
