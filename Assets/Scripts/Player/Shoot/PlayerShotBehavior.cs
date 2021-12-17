@@ -2,12 +2,23 @@ using UnityEngine;
 
 public class PlayerShotBehavior : MonoBehaviour
 {
-    public int Damage => Game.CurrentGame.PlayerData.Damage;
+    public int angularVelocity;
 
+    public int Damage => Game.CurrentGame.PlayerData.Damage;
     private float _shotSpeed => Game.CurrentGame.PlayerData.ShotSpeed;
     private bool _homing => Game.CurrentGame.PlayerData.HasHoming;
-    public int angularVelocity;
+    private int _totalBouncingCount => Game.CurrentGame.PlayerData.BouncyBulletsLevel;
+    private WorldBound bound => Game.CurrentGame.WorldBound;
+
     private GameObject target;
+    private int _remainingBouncingCount;
+    private Vector2 _velocity;
+
+    public void Setup()
+    {
+        _velocity = Vector2.up;
+        _remainingBouncingCount = _totalBouncingCount;
+    }
 
     void Update()
     {
@@ -23,7 +34,7 @@ public class PlayerShotBehavior : MonoBehaviour
 
             if (target == null)
             {
-                transform.Translate(Vector2.up * _shotSpeed * Time.deltaTime);
+                transform.Translate(_velocity * _shotSpeed * Time.deltaTime);
                 return;
             }
 
@@ -35,11 +46,25 @@ public class PlayerShotBehavior : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, -angularVelocity * rotateAmount), Space.Self);
         }
 
-        transform.Translate(Vector2.up * _shotSpeed * Time.deltaTime);
+        transform.Translate(_velocity * _shotSpeed * Time.deltaTime);
 
-        if (!Game.CurrentGame.WorldBound.CheckIsWithinBound(transform.position))
+        if (!bound.CheckIsWithinBound(transform.position))
         {
-            gameObject.SetActive(false);
+            if (_remainingBouncingCount > 0)
+            {
+                if (_remainingBouncingCount-- == _totalBouncingCount)
+                {
+                    _velocity = new Vector2(Random.Range(-1f, 1f), -0.1f).normalized;
+                }
+                else
+                {
+                    _velocity = bound.BounceBack(transform.position, _velocity);
+                }
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ public class PlayerData
     public bool HasHoming = false;
     public bool HasBoom = false;
     public bool HasMagnet = false;
-    public bool BouncyBullets = false;
+    public int BouncyBulletsLevel = 0;
     public bool SplittingBullets = false;
 
     private static string GetDataPath(string filename)
