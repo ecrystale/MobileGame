@@ -6,10 +6,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 initialPos;
     private float xOffset;
     private float yOffset;
-    private float upperXBound;
-    private float lowerXBound;
-    private float lowerYBound;
-    private float upperYBound;
     private Touch lastTouch;
 
     public GameObject closestEnemy;
@@ -18,10 +14,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Input.multiTouchEnabled = false;
-        upperXBound = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).x;
-        lowerXBound = -Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).x;
-        lowerYBound = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).y;
-        upperYBound = -Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).y;
     }
 
     private void ResetOffsetFromTouchToPlayer(Touch touch)
@@ -47,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
                 float newX = Camera.main.ScreenToWorldPoint(touch.position).x - xOffset;
                 float newY = Camera.main.ScreenToWorldPoint(touch.position).y - yOffset;
 
-                Vector2 target = new Vector2(Mathf.Clamp(newX, lowerXBound, upperXBound), Mathf.Clamp(newY, lowerYBound, upperYBound));
+                Vector2 target = Game.CurrentGame.WorldBound.ClampBound(new Vector2(newX, newY));
                 float distance = Vector2.Distance(transform.position, target);
 
                 if (distance > PublicVars.FRAME_MOVEMENT_SPEED_CAP)

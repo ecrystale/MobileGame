@@ -6,10 +6,6 @@ public class PlayerShotBehavior : MonoBehaviour
 {
     public int Damage = 5;
     private float _shotSpeed;
-    private float upperXBound;
-    private float lowerXBound;
-    private float lowerYBound;
-    private float upperYBound;
 
     public bool homing;
     public int angularVelocity;
@@ -17,26 +13,12 @@ public class PlayerShotBehavior : MonoBehaviour
 
     void Start()
     {
-        upperXBound = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).x;
-        lowerXBound = -Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).x;
-        lowerYBound = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).y;
-        upperYBound = -Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0f)).y;
-
         homing = true;
         _shotSpeed = Game.CurrentGame.PlayerData.shotSpeed;
     }
 
     void Update()
     {
-        if (!homing)
-        {
-            if (transform.position.x > upperXBound || transform.position.x < lowerXBound ||
-                transform.position.y > upperYBound || transform.position.y < lowerYBound)
-            {
-                gameObject.SetActive(false);
-            }
-        }
-
         if (homing)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -64,8 +46,7 @@ public class PlayerShotBehavior : MonoBehaviour
 
         transform.Translate(Vector2.up * _shotSpeed * Time.deltaTime);
 
-        if (transform.position.x > upperXBound || transform.position.x < lowerXBound ||
-           transform.position.y > upperYBound || transform.position.y < lowerYBound)
+        if (!Game.CurrentGame.WorldBound.CheckIsWithinBound(transform.position))
         {
             gameObject.SetActive(false);
         }
