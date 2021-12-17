@@ -1,10 +1,12 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 public class EnemyMove : MonoBehaviour
 {
     public Vector3 endpos = new Vector3(0, 0, 0);
     public float speed;
+    public event Action<EnemyMove> Gone;
 
     private GameObject _player;
     private PlayerMovement _playerMovement;
@@ -24,6 +26,21 @@ public class EnemyMove : MonoBehaviour
         if (_player == null) return;
 
         transform.position = Vector3.Lerp(transform.position, endpos, speed * Time.deltaTime);
+        distanceFromPlayer = Vector2.Distance(_player.transform.position, transform.position);
+
+        if (_isExiting && !Game.CurrentGame.WorldBound.CheckIsWithinBound(transform.position))
+        {
+            Debug.Log("enemy no longer active");
+            gameObject.SetActive(false);
+            if (Gone != null) Gone(this);
+        }
+
+        if (distanceFromPlayer < _playerMovement.getClosestEnemyDistance())
+        {
+            _playerMovement.setClosestEnemy(gameObject);
+            _playerMovement.setClosestEnemyDistance(distanceFromPlayer);
+        }
+
     }
 
     public void Spawner(Vector3 pos, Vector3 exitpos, float duration)

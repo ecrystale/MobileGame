@@ -39,7 +39,7 @@ public class EnemyHealth : MonoBehaviour
             if (Destroyed != null && !destroyed)
             {
                 destroyed = true;
-                Destroyed(this);
+                if (Destroyed != null) Destroyed(this);
                 Instantiate(explode, transform.position, transform.rotation);
             };
             Destroy(gameObject);
