@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 948049333638618697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 2.05, z: 0}
-  m_LocalScale: {x: 0.28664, y: 0.28664, z: 0.28664}
+  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children:
   - {fileID: 948049333539552011}
   - {fileID: 2166214533816117889}
@@ -64,8 +64,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9122ec575c1d44449f39037ff30fb51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 800
   explode: {fileID: 7756032478232065651, guid: 7c49e0a8485504ce4a935502b754a4b9, type: 3}
+  HealthBar: {fileID: 1806442324585083522, guid: e0b466ab8536ef9419b1f15fa127f00b, type: 3}
 --- !u!114 &-4926934447596541543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ca56fa5ea4e44459531e1849540469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsUI: 0
   rateOfFire: 0.1
   shotSpeed: 3
   startAngle: 0
