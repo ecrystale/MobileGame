@@ -34,7 +34,7 @@ public class ShopItemGroup : MonoBehaviour
     {
         ToggleButton.gameObject.SetActive(_upgradable.IsAbility && _upgradable.Level > 0);
         ItemName.text = _upgradable.Name;
-        PriceTag.text = _upgradable.CurrentPrice.ToString();
+        PriceTag.text = _upgradable.Level == _upgradable.MaxLevel ? "Maxed" : _upgradable.CurrentPrice.ToString();
         ItemLevel.text = $"{_upgradable.Level}/{_upgradable.MaxLevel}";
         PurchaseButton.Button.interactable = _upgradable.CanUpgrade;
     }
