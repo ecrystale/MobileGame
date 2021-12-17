@@ -3144,6 +3144,7 @@ MonoBehaviour:
   CurrentLevel: 0
   Menu: {fileID: 495837736}
   PlayerHitbox: {fileID: 1624860780}
+  PlayerSpawnPoint: {fileID: 1745478728}
 --- !u!4 &1357571886
 Transform:
   m_ObjectHideFlags: 0

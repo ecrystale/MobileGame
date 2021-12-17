@@ -13,6 +13,7 @@ public class Game : MonoBehaviour
     public int CurrentLevel = 0;
     public MenuManager Menu;
     public PlayerHitbox PlayerHitbox;
+    public GameObject PlayerSpawnPoint;
     public int LevelProgress { get; private set; }
 
     public bool Paused => Menu != null && Menu.Paused;
@@ -85,6 +86,7 @@ public class Game : MonoBehaviour
         _currentLevel = level;
 
         // Reset player states
+        PlayerHitbox.Player.transform.position = PlayerSpawnPoint.transform.position;
         PlayerHitbox.Player.SetActive(true);
         PlayerHitbox.Dead = false;
 
