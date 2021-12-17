@@ -44,7 +44,7 @@ public class Game : MonoBehaviour
 
         // Load PlayerData
         PlayerData = PlayerData.LoadJsonData(PublicVars.PlayerDataFile);
-        LevelProgress = 3;
+        LevelProgress = PlayerData.LevelProgress;
 
         // 9 is the number of enums in Purchasable
         Upgradables = new Upgradable[PublicVars.MAX_PURCHASABLES];
