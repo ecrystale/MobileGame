@@ -35,6 +35,10 @@ public class EnemySpawner : MonoBehaviour
         Active = false;
 
         FindObjectOfType<ObjectPooler>()?.CleanAll();
+        foreach (CollectibleBehavior coin in FindObjectsOfType<CollectibleBehavior>())
+        {
+            Destroy(coin.gameObject);
+        }
         foreach (GameObject enemyGameObject in _activeEnemies)
         {
             Destroy(enemyGameObject);
@@ -104,7 +108,7 @@ public class EnemySpawner : MonoBehaviour
 
     void HandleDestroyedOrGone(int wave, GameObject enemy, bool isLastWave, int coinReward, bool destroyed)
     {
-        Instantiate(coinPrefab, enemy.transform.position, Quaternion.identity);
+        if (destroyed) Instantiate(coinPrefab, enemy.transform.position, Quaternion.identity);
         _waveEnemiesCount[wave]--;
         _activeEnemies.Remove(enemy.gameObject);
         if (_waveEnemiesCount[wave] == 0)
