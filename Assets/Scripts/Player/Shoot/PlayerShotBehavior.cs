@@ -12,11 +12,16 @@ public class PlayerShotBehavior : MonoBehaviour
 
     private GameObject target;
     private int _remainingBouncingCount;
-    private Vector2 _velocity;
+    private Vector2 _direction;
 
     public void Setup()
     {
-        _velocity = Vector2.up;
+        Setup(Vector2.up);
+    }
+
+    public void Setup(Vector2 direction)
+    {
+        _direction = direction;
         _remainingBouncingCount = _totalBouncingCount;
     }
 
@@ -34,7 +39,7 @@ public class PlayerShotBehavior : MonoBehaviour
 
             if (target == null)
             {
-                transform.Translate(_velocity * _shotSpeed * Time.deltaTime);
+                transform.Translate(_direction * _shotSpeed * Time.deltaTime);
                 return;
             }
 
@@ -46,19 +51,19 @@ public class PlayerShotBehavior : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, -angularVelocity * rotateAmount), Space.Self);
         }
 
-        transform.Translate(_velocity * _shotSpeed * Time.deltaTime);
+        transform.Translate(_direction * _shotSpeed * Time.deltaTime);
 
         if (!bound.CheckIsWithinBound(transform.position))
         {
             if (_remainingBouncingCount > 0)
             {
-                if (_remainingBouncingCount-- == _totalBouncingCount)
+                if (_remainingBouncingCount-- == _totalBouncingCount && _direction == Vector2.up)
                 {
-                    _velocity = new Vector2(Random.Range(-1f, 1f), -0.1f).normalized;
+                    _direction = new Vector2(Random.Range(-1f, 1f), -0.1f).normalized;
                 }
                 else
                 {
-                    _velocity = bound.BounceBack(transform.position, _velocity);
+                    _direction = bound.BounceBack(transform.position, _direction);
                 }
             }
             else

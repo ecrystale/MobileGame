@@ -24,6 +24,14 @@ public class EnemyHealth : MonoBehaviour
             PlayerShotBehavior playerShotBehavior = other.GetComponent<PlayerShotBehavior>();
             _health -= playerShotBehavior.Damage;
 
+            if (Game.CurrentGame.PlayerData.SplittingBullets)
+            {
+                Vector2 spawnOffset = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
+                PlayerShotBehavior shot = Game.CurrentGame.ObjectPooler.instantiateObjFromPool("PlayerShot", ((Vector2)transform.position) + spawnOffset, Quaternion.identity).GetComponent<PlayerShotBehavior>();
+                shot.gameObject.transform.right = spawnOffset;
+                shot.Setup(spawnOffset);
+            }
+
             Destroy(other.gameObject);
         }
 
