@@ -143,6 +143,7 @@ public class Game : MonoBehaviour
             LevelProgress = nextLevel;
             ProgressMade(nextLevel);
         }
+        CurrentLevelSummary.Cleared = true;
         PrepareSummary();
         SaveGame();
         Menu.LockDisplay(Menu.WinScreen, PublicVars.WIN_SCREEN_DRUATION);
