@@ -9,9 +9,12 @@ public class EnemyMove : MonoBehaviour
     private GameObject _player;
     private PlayerMovement _playerMovement;
     private float distanceFromPlayer;
+    private bool _isExiting;
 
     void Start()
     {
+        _isExiting = false;
+
         _player = Game.CurrentGame.PlayerHitbox.Player;
         _playerMovement = _player.GetComponent<PlayerMovement>();
         speed = 3f;
@@ -23,6 +26,12 @@ public class EnemyMove : MonoBehaviour
 
         transform.position = Vector3.Lerp(transform.position, endpos, speed * Time.deltaTime);
         distanceFromPlayer = Vector2.Distance(_player.transform.position, transform.position);
+
+        if (_isExiting && !Game.CurrentGame.WorldBound.CheckIsWithinBound(transform.position))
+        {
+            Debug.Log("enemy no longer active");
+            gameObject.SetActive(false);
+        }
 
         if (distanceFromPlayer < _playerMovement.getClosestEnemyDistance())
         {
@@ -44,6 +53,7 @@ public class EnemyMove : MonoBehaviour
     IEnumerator DelayExit(Vector3 exitpos, float delay)
     {
         yield return new WaitForSeconds(delay);
+        _isExiting = true;
         endpos = exitpos;
     }
 }
