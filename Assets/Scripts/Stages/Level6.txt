@@ -1,0 +1,11 @@
+id: 5
+name: Level6
+healthFactor: 1.5
+END OF META
+11 h 1 false 5 2
+121 h 0 false 6 3
+333 h 1 true 5 2
+00 v 4 false 5 2
+22 h 0 true 5 2
+22 v 1 true 5 2
+66 h 0 false -1 5

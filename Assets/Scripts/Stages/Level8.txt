@@ -1,0 +1,12 @@
+id: 7
+name: Level9
+healthFactor: 1.75
+END OF META
+112 h 0 false 6 2
+2102 v 4 false 6 4
+777 h 0 true -1 2
+6556 h 4 true 5 5
+223 h 1 true 5 2
+222 h 0 true 5 2
+674 h 1 true 5 4
+7777 h 0 false -1 5
