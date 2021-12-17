@@ -48,10 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ca56fa5ea4e44459531e1849540469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 0.8
-  shotSpeed: 2
-  startAngle: 90
-  endAngle: 270
+  rateOfFire: 0.1
+  shotSpeed: 3
+  startAngle: 0
+  endAngle: 90
   spokes: 8
   angularVelocity: 180
 --- !u!114 &1250055314459465354

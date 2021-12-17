@@ -58,6 +58,9 @@ public class EnemyHealth : MonoBehaviour
             Destroy(gameObject);
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if(player == null){
+                return;
+            }
             player.GetComponent<PlayerMovement>().setClosestEnemyDistance(float.PositiveInfinity);
         }
     }
