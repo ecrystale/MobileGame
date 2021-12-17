@@ -25,9 +25,9 @@ public class Bomb : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount == 2)
+        if (Input.touchCount == 2 && Game.CurrentGame.PlayerData.HasBoom)
         {
-            if(canGrow)
+            if (canGrow)
             {
                 StartCoroutine(activate());
             }
@@ -51,7 +51,7 @@ public class Bomb : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        
+
         // cooldown
         yield return new WaitForSeconds(0.4f);
         StartCoroutine(fadeout());
@@ -59,7 +59,7 @@ public class Bomb : MonoBehaviour
 
     private IEnumerator fadeout()
     {
-        for(float i = 1f; i >= -0.1f; i -= 0.1f)
+        for (float i = 1f; i >= -0.1f; i -= 0.1f)
         {
             Color c = _spriteRenderer.material.color;
             c.a = i;
@@ -77,7 +77,7 @@ public class Bomb : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "EnemyShot")
+        if (other.tag == "EnemyShot")
         {
             other.gameObject.SetActive(false);
         }
