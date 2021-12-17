@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D))]
 public class EnemyHealth : MonoBehaviour
@@ -7,6 +8,7 @@ public class EnemyHealth : MonoBehaviour
     public int MaxHealth = 100;
     public event Action<EnemyHealth> Destroyed;
     public GameObject explode;
+    public Slider HealthBar;
 
     private int _health;
     private bool destroyed = false;
@@ -19,6 +21,14 @@ public class EnemyHealth : MonoBehaviour
     private void Start()
     {
         _health = MaxHealth;
+    }
+
+    private void Update()
+    {
+        if (HealthBar == null) return;
+
+        HealthBar.transform.position = (Vector2)(transform.position) + Vector2.up * 0.5f;
+        HealthBar.transform.rotation = Quaternion.identity;
     }
 
     // REFACTOR later, this is super redundant rn
@@ -50,6 +60,8 @@ public class EnemyHealth : MonoBehaviour
             Bomb bomb = other.GetComponent<Bomb>();
             _health -= bomb.Damage;
         }
+
+        if (HealthBar != null) HealthBar.value = _health / (float)MaxHealth;
 
         if (_health <= 0)
         {
