@@ -89,15 +89,15 @@ public class Game : MonoBehaviour
         Menu.HideMenu();
     }
 
-    public void HandlePlayerDied(GameObject player)
+    private void HandlePlayerDied(GameObject player)
     {
         if (GameOvered != null) GameOvered(_currentLevel);
-        prepareSummary();
+        PrepareSummary();
         Menu.LockDisplay(Menu.DeathScreen, PublicVars.DEATH_SCREEN_DRUATION);
         Menu.SetCanHide(false);
     }
 
-    public void HandleLastWaveCleared(EnemySpawner spawner, int wave, bool isLastWave)
+    private void HandleLastWaveCleared(EnemySpawner spawner, int wave, bool isLastWave)
     {
         if (!isLastWave) return;
         StopAllCoroutines();
@@ -108,18 +108,18 @@ public class Game : MonoBehaviour
             LevelProgress = nextLevel;
             ProgressMade(nextLevel);
         }
-        prepareSummary();
+        PrepareSummary();
         SaveGame();
         Menu.LockDisplay(Menu.WinScreen, PublicVars.WIN_SCREEN_DRUATION);
         Menu.SetCanHide(false);
     }
 
-    public void SaveGame()
+    private void SaveGame()
     {
         PlayerData.SaveJsonData(PublicVars.PlayerDataFile);
     }
 
-    public void prepareSummary()
+    private void PrepareSummary()
     {
         Menu.SummaryPage.Setup(CurrentLevelSummary);
         Menu.PushPage(Menu.SummaryPage);
