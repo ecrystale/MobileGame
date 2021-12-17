@@ -27,7 +27,8 @@ public class EnemyHealth : MonoBehaviour
             Destroy(other);
         }
 
-        if(other.gameObject.CompareTag("Bomb")){
+        if (other.gameObject.CompareTag("Bomb"))
+        {
             Bomb bomb = other.GetComponent<Bomb>();
             _health -= bomb.Damage;
         }
@@ -45,7 +46,6 @@ public class EnemyHealth : MonoBehaviour
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             player.GetComponent<PlayerMovement>().setClosestEnemyDistance(float.PositiveInfinity);
-            
         }
     }
 

@@ -7,9 +7,9 @@ public class SummaryPage : PageManager
 
     public void Setup(SummaryData data)
     {
-        Score.UpdateValue(data.Score.ToString());
-        Destruction.UpdateValue(data.DestructionRate.ToString());
-        CompletionTime.UpdateValue(String.Concat(data.CompletionTime, "s"));
         Coin.UpdateValue(data.Coin.ToString());
+        Score.UpdateValue(data.Score.ToString());
+        Destruction.UpdateValue(String.Format("{0:P2}", data.DestructionRate));
+        CompletionTime.UpdateValue(String.Format("{0:F2}s", data.CompletionTime));
     }
 }

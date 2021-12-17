@@ -11,6 +11,10 @@ public class EnemySpawner : MonoBehaviour
     public bool Active = false;
     public event Action<EnemySpawner, int, bool> WaveCleared;
     public event Action<EnemySpawner, int, bool> WaveEntered;
+    public event Action<EnemySpawner> LevelInitialized;
+    public event Action<EnemySpawner, EnemyHealth, EnemyMove> EnemySpawned;
+
+    public int TotalEnemies => _totalEnemiesCount;
 
     [Tooltip("It is not used in the actual gameplay")]
     public TextAsset PreviewLevel;
@@ -22,6 +26,7 @@ public class EnemySpawner : MonoBehaviour
     private int _wave;
     private int _totalWave;
     private int[] _waveEnemiesCount;
+    private int _totalEnemiesCount;
     private List<GameObject> _activeEnemies = new List<GameObject>();
 
     public void Reset(Level level)
@@ -42,6 +47,9 @@ public class EnemySpawner : MonoBehaviour
         _originalSpawnInterval = level.Info.Interval;
 
         _waveEnemiesCount = _spawners.Select(wave => wave.Enemies.Length - 1).ToArray();
+        _totalEnemiesCount = _waveEnemiesCount.Sum();
+
+        if (LevelInitialized != null) LevelInitialized(this);
     }
 
     void Start()
@@ -69,10 +77,18 @@ public class EnemySpawner : MonoBehaviour
             for (int i = 0; i < spawner.Enemies.Length; i++)
             {
                 currentEnemy = Instantiate(enemy[spawner.Enemies[i]], instantiatePosition, Quaternion.identity);
+
+                EnemyMove enemyMove = currentEnemy.GetComponent<EnemyMove>();
+                EnemyHealth enemyHealth = currentEnemy.GetComponent<EnemyHealth>();
+
+                enemyMove.Spawner(spawnPosition, instantiatePosition, spawner.Duration);
+
+                enemyHealth.Destroyed += (EnemyHealth enemyHealth) => HandleDestroyed(wave, enemyHealth, isLastWave);
+
+                if (EnemySpawned != null) EnemySpawned(this, enemyHealth, enemyMove);
+
                 _activeEnemies.Add(currentEnemy);
-                currentEnemy.GetComponent<EnemyMove>().Spawner(spawnPosition, instantiatePosition, spawner.Duration);
                 spawnPosition += spawnOffset;
-                currentEnemy.GetComponent<EnemyHealth>().Destroyed += (EnemyHealth enemyHealth) => HandleDestroyed(wave, enemyHealth, isLastWave);
             }
 
             if (WaveEntered != null) WaveEntered(this, wave, isLastWave);
