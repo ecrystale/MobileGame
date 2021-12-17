@@ -11,6 +11,11 @@ public class EnemyHealth : MonoBehaviour
     private int _health;
     private bool destroyed = false;
 
+    public void SetHealth(int health)
+    {
+        _health = MaxHealth = health;
+    }
+
     private void Start()
     {
         _health = MaxHealth;
@@ -58,7 +63,8 @@ public class EnemyHealth : MonoBehaviour
             Destroy(gameObject);
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if(player == null){
+            if (player == null)
+            {
                 return;
             }
             player.GetComponent<PlayerMovement>().setClosestEnemyDistance(float.PositiveInfinity);

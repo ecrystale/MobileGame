@@ -21,6 +21,7 @@ public class EnemySpawner : MonoBehaviour
     public TextAsset PreviewLevel;
     public Spawner[] SpawnersPreview;
 
+    private LevelMeta _levelInfo;
     private Spawner[] _spawners;
     private float _interval = 2f;
     private float _originalSpawnInterval;
@@ -45,6 +46,7 @@ public class EnemySpawner : MonoBehaviour
         }
         _activeEnemies = new List<GameObject>();
         _spawners = level.Spawners;
+        _levelInfo = level.Info;
         _wave = 0;
         _totalWave = _spawners.Length;
 
@@ -87,6 +89,7 @@ public class EnemySpawner : MonoBehaviour
                 EnemyHealth enemyHealth = currentEnemy.GetComponent<EnemyHealth>();
 
                 enemyMove.Spawner(spawnPosition, instantiatePosition, spawner.Duration);
+                enemyHealth.SetHealth(Mathf.FloorToInt(enemyHealth.MaxHealth * _levelInfo.HealthFactor));
 
                 enemyHealth.Destroyed += (EnemyHealth enemyHealth) => HandleDestroyedOrGone(wave, enemyHealth.gameObject, isLastWave, spawner.CoinReward, true);
                 enemyMove.Gone += (EnemyMove enemyMove) => HandleDestroyedOrGone(wave, enemyMove.gameObject, isLastWave, spawner.CoinReward, false);

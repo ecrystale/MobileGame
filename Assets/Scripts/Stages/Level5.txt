@@ -1,5 +1,6 @@
 id: 4
 name: Level5
+healthFactor: 1.5
 END OF META
 11 v 3 false 6 1
 11 v 4 false 6 1

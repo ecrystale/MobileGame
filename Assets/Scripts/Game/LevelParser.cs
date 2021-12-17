@@ -43,6 +43,7 @@ public class LevelParser
         int id = -1;
         string name = null;
         float interval = PublicVars.WAVE_DEFAULT_INTERVAL;
+        float healthFactor = 1;
         foreach (string line in levelMeta)
         {
             string[] segments = line.Split(':').Select(segment => segment.Trim()).ToArray();
@@ -62,6 +63,9 @@ public class LevelParser
                 case "interval":
                     interval = float.Parse(segments[1]);
                     break;
+                case "healthFactor":
+                    healthFactor = float.Parse(segments[1]);
+                    break;
             }
         }
 
@@ -69,7 +73,8 @@ public class LevelParser
         {
             throw new ArgumentException($"key id and name are expected");
         }
-        return new LevelMeta(id, name, interval);
+
+        return new LevelMeta(id, name, interval, healthFactor);
     }
 
     private Spawner[] ParseStages(string[] rawStages)
