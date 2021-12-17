@@ -4436,6 +4436,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 632eb59e20162b64b9d1ab20c1161bf1, type: 3}
   - {fileID: 4900000, guid: 6a3f5e6c403b6cb44b89212ee1e8962a, type: 3}
   - {fileID: 4900000, guid: 60b201b663d85b7469a726220db21c7d, type: 3}
+  - {fileID: 4900000, guid: 2e7cad274768f5b44a411735862dcb49, type: 3}
   Menu: {fileID: 495837736}
   PlayerHitbox: {fileID: 1624860780}
   PlayerSpawnPoint: {fileID: 1745478728}

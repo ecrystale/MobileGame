@@ -11,15 +11,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject closestEnemy;
     public float closestEnemyDistance = float.PositiveInfinity;
 
-    void Awake(){
-        print("ghjowef");
-    }
-
-    void Start()
-    {
-        Input.multiTouchEnabled = false;
-    }
-
     private void ResetOffsetFromTouchToPlayer(Touch touch)
     {
         initialPos = Camera.main.ScreenToWorldPoint(touch.position);
