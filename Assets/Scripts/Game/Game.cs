@@ -99,6 +99,11 @@ public class Game : MonoBehaviour
             LoadLevel(_levels[_levels.Count - 1]);
     }
 
+    public int LastLevel()
+    {
+        return _levels.Count - 1;
+    }
+
     public void LoadLevel(int id) => LoadLevel(_levels[_levels.IndexOfKey(id)]);
 
     public void LoadLevel(Level level)
@@ -155,6 +160,13 @@ public class Game : MonoBehaviour
         CurrentLevelSummary.Coin++;
     }
 
+    public void UpdateCoins(int coins)
+    {
+        PlayerData.Coins = coins;
+        SaveGame();
+        if (CoinsChanged != null) CoinsChanged(PlayerData.Coins);
+    }
+
     private void HandlePlayerDied(GameObject player)
     {
         StopAllCoroutines();
@@ -162,9 +174,7 @@ public class Game : MonoBehaviour
         StartCoroutine(DelayedTask.Wrapper(() =>
         {
             PrepareSummary();
-            PlayerData.Coins += CurrentLevelSummary.Coin;
-            SaveGame();
-            if (CoinsChanged != null) CoinsChanged(PlayerData.Coins);
+            UpdateCoins(PlayerData.Coins + CurrentLevelSummary.Coin);
             Menu.LockDisplay(Menu.DeathScreen, PublicVars.DEATH_SCREEN_DRUATION);
             Menu.SetCanHide(false);
             IsInGame = false;
@@ -184,6 +194,14 @@ public class Game : MonoBehaviour
         CurrentLevelSummary.TotalEnemies = spawner.TotalEnemies;
     }
 
+    public void UpdateProgress(int progress)
+    {
+        PlayerData.LevelProgress = progress;
+        LevelProgress = progress;
+        SaveGame();
+        ProgressMade(progress);
+    }
+
     private void HandleLastWaveCleared(EnemySpawner spawner, int wave, bool isLastWave)
     {
         if (!isLastWave) return;
@@ -193,9 +211,7 @@ public class Game : MonoBehaviour
         float flashDuration = PublicVars.WIN_SCREEN_DRUATION;
         if (nextLevel > LevelProgress)
         {
-            PlayerData.LevelProgress = nextLevel;
-            LevelProgress = nextLevel;
-            ProgressMade(nextLevel);
+            UpdateProgress(nextLevel);
             if (!IsLevelValid(LevelProgress))
             {
                 flashScreen = Menu.ClearedScreen;
@@ -206,9 +222,7 @@ public class Game : MonoBehaviour
         StartCoroutine(DelayedTask.Wrapper(() =>
         {
             PrepareSummary();
-            PlayerData.Coins += CurrentLevelSummary.Coin;
-            SaveGame();
-            if (CoinsChanged != null) CoinsChanged(PlayerData.Coins);
+            UpdateCoins(PlayerData.Coins + CurrentLevelSummary.Coin);
             Menu.LockDisplay(flashScreen, flashDuration);
             Menu.SetCanHide(false);
             IsInGame = false;
