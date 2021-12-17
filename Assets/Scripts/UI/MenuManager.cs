@@ -13,7 +13,7 @@ public class MenuManager : MonoBehaviour
     public GameObject Background;
     public PageManager DeathScreen;
     public PageManager WinScreen;
-    public PageManager MainPage;
+    public MainPage MainPage;
     public SummaryPage SummaryPage;
     public LevelPage LevelPage;
     public ShopPage ShopPage;

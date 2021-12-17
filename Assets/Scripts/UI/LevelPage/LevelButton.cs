@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class LevelButton : ButtonBehaviour
 {
+    public bool ContinueMode;
     public Button Button { get; private set; }
     public Text Text;
     public int levelIDToLoad;
@@ -19,6 +20,12 @@ public class LevelButton : ButtonBehaviour
 
     protected override void HandleClick()
     {
+        if (ContinueMode)
+        {
+            Game.CurrentGame.Continue();
+            return;
+        }
+
         if (Game.CurrentGame.LevelProgress >= levelIDToLoad)
         {
             Debug.Log($"Loading level {levelIDToLoad}...");

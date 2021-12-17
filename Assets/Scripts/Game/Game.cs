@@ -82,7 +82,7 @@ public class Game : MonoBehaviour
         Menu.LevelPage.StartLevel = 0;
         Menu.LevelPage.EndLevel = _levels.Count - 1;
         Menu.LevelPage.Setup();
-
+        Menu.MainPage.Setup();
         Menu.ShopPage.Setup();
     }
 
@@ -120,6 +120,7 @@ public class Game : MonoBehaviour
         PlayerHitbox.Dead = false;
 
         // Navigate through the menu
+        Menu.MainPage.Setup();
         Menu.SetCanHide(true);
         Menu.Back();
         Menu.HideMenu();
@@ -155,6 +156,7 @@ public class Game : MonoBehaviour
 
     private void HandlePlayerDied(GameObject player)
     {
+        StopAllCoroutines();
         if (GameOvered != null) GameOvered(_currentLevel);
         StartCoroutine(DelayedTask.Wrapper(() =>
         {
@@ -162,8 +164,10 @@ public class Game : MonoBehaviour
             PlayerData.Coins += CurrentLevelSummary.Coin;
             SaveGame();
             if (CoinsChanged != null) CoinsChanged(PlayerData.Coins);
+            Menu.MainPage.Setup();
             Menu.LockDisplay(Menu.DeathScreen, PublicVars.DEATH_SCREEN_DRUATION);
             Menu.SetCanHide(false);
+            IsInGame = false;
         }, PublicVars.LOSE_DELAY));
     }
 
@@ -197,6 +201,7 @@ public class Game : MonoBehaviour
             PlayerData.Coins += CurrentLevelSummary.Coin;
             SaveGame();
             if (CoinsChanged != null) CoinsChanged(PlayerData.Coins);
+            Menu.MainPage.Setup();
             Menu.LockDisplay(Menu.WinScreen, PublicVars.WIN_SCREEN_DRUATION);
             Menu.SetCanHide(false);
             IsInGame = false;
