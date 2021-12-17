@@ -8,6 +8,8 @@ public class PlayerHitbox : MonoBehaviour
     public event Action<GameObject> PlayerDied;
     public event Action<GameObject> PlayerCollectedCoin;
     public bool Dead = false;
+    public AudioSource AudioSource;
+    public AudioClip GoldClip;
 
     void Start()
     {
@@ -27,6 +29,7 @@ public class PlayerHitbox : MonoBehaviour
         if (other.gameObject.CompareTag("Coin"))
         {
             if (PlayerCollectedCoin != null) PlayerCollectedCoin(Player);
+            AudioSource.PlayOneShot(GoldClip);
             Destroy(other.gameObject);
         }
     }
