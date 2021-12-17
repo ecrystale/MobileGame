@@ -35,7 +35,7 @@ public class EnemyMove : MonoBehaviour
 
     public void Spawner(Vector3 pos, Vector3 exitpos, float duration)
     {
-        endpos = pos;
+        endpos = Game.CurrentGame.WorldBound.ClampBound(pos);
         if (duration == -1) return;
         float timeToExit = Vector3.Distance(exitpos, endpos) / speed;
         //Destroy(this.gameObject, duration);
