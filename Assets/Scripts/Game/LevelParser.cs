@@ -87,20 +87,13 @@ public class LevelParser
 
             string[] segments = rawStage.Split();
             if (segments.Length < 6) throw new ParsingException($"6 arguments excepted, but {segments.Length} arguments are given in {_filename}");
-            try
-            {
-                spawner.Enemies = segments[0].Select(enemyChar => Int32.Parse(enemyChar.ToString())).ToArray();
-                spawner.SpawnPointIndex = Int32.Parse(segments[2]);
-                spawner.Centralized = bool.Parse(segments[3]);
-                spawner.Duration = Int32.Parse(segments[4]);
-                spawner.CoinReward = Int32.Parse(segments[5]);
-                _maxSpawnPoint = Math.Max(spawner.SpawnPointIndex, _maxSpawnPoint);
-                _maxEnemyTypeIndex = Math.Max(spawner.Enemies[spawner.Enemies.Max(e => e)], _maxEnemyTypeIndex);
-            }
-            catch
-            {
-                throw new ParsingException($"Failed to parse line \"{rawStage}\" in {_filename}");
-            }
+            spawner.Enemies = segments[0].Select(enemyChar => Int32.Parse(enemyChar.ToString())).ToArray();
+            spawner.SpawnPointIndex = Int32.Parse(segments[2]);
+            spawner.Centralized = bool.Parse(segments[3]);
+            spawner.Duration = Int32.Parse(segments[4]);
+            spawner.CoinReward = Int32.Parse(segments[5]);
+            _maxSpawnPoint = Math.Max(spawner.SpawnPointIndex, _maxSpawnPoint);
+            _maxEnemyTypeIndex = Math.Max(spawner.Enemies.Max(), _maxEnemyTypeIndex);
 
             if (segments[1].Length == 1)
             {
@@ -110,6 +103,7 @@ public class LevelParser
             {
                 float[] components = segments[1].Split('|').Select(component => float.Parse(component)).ToArray();
                 spawner.Direction = new Vector2(components[0], components[1]);
+                Debug.Log(spawner.Direction);
             }
             return spawner;
         }).ToArray();

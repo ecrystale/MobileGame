@@ -47,7 +47,7 @@ public class EnemySpawner : MonoBehaviour
         _interval = PublicVars.WAVE_INIT_INTERVAL;
         _originalSpawnInterval = level.Info.Interval;
 
-        _waveEnemiesCount = _spawners.Select(wave => wave.Enemies.Length - 1).ToArray();
+        _waveEnemiesCount = _spawners.Select(wave => wave.Enemies.Length).ToArray();
         _totalEnemiesCount = _waveEnemiesCount.Sum();
 
         if (LevelInitialized != null) LevelInitialized(this);
@@ -69,9 +69,9 @@ public class EnemySpawner : MonoBehaviour
             GameObject currentEnemy;
             int wave = _wave;
             Spawner spawner = _spawners[wave];
-            Vector3 spawnOffset = spawner.Direction.normalized;
-            Vector3 instantiatePosition = transform.position;
-            Vector3 spawnPosition = spawnpts[spawner.SpawnPointIndex].transform.position;
+            Vector2 spawnOffset = spawner.Direction.normalized;
+            Vector2 instantiatePosition = transform.position;
+            Vector2 spawnPosition = spawnpts[spawner.SpawnPointIndex].transform.position;
             bool isLastWave = wave == _totalWave - 1;
             if (spawner.Centralized) spawnPosition -= spawnOffset * (1 + spawner.Enemies.Length / 2);
 
@@ -103,7 +103,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void HandleDestroyedOrGone(int wave, GameObject enemy, bool isLastWave, int coinReward, bool destroyed)
-    {   
+    {
         Instantiate(coinPrefab, enemy.transform.position, Quaternion.identity);
         _waveEnemiesCount[wave]--;
         _activeEnemies.Remove(enemy.gameObject);

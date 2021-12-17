@@ -15,17 +15,15 @@ public class ClosestPosition : MonoBehaviour
 
     void Update()
     {
-        print("calculating");
         distanceFromPlayer = Vector2.Distance(player.transform.position, transform.position);
 
-        if(distanceFromPlayer < _playerMovement.getClosestEnemyDistance())
+        if (distanceFromPlayer < _playerMovement.getClosestEnemyDistance())
         {
-            print("updating");
             _playerMovement.setClosestEnemy(gameObject);
             _playerMovement.setClosestEnemyDistance(distanceFromPlayer);
         }
 
-        if(_playerMovement.getClosestEnemy() == gameObject && distanceFromPlayer > _playerMovement.getClosestEnemyDistance())
+        if (_playerMovement.getClosestEnemy() == gameObject && distanceFromPlayer > _playerMovement.getClosestEnemyDistance())
         {
             _playerMovement.setClosestEnemyDistance(distanceFromPlayer);
         }
