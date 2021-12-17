@@ -23,7 +23,7 @@ public class PlayerHitbox : MonoBehaviour
 
         // Just destroy for now
         if(other.gameObject.CompareTag("Coin")){
-            Destroy(other);
+            Destroy(other.gameObject);
         }
     }
 }
