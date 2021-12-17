@@ -19,8 +19,12 @@ public class PlayerShoot : TimeoutBehaviour
             Vector2 spawnStart = Vector2.up * shotSpawnOffset + (Vector2)transform.position - (spawnOffset * (bulletsCount - 1) / 2);
             for (int i = 0; i < bulletsCount; i++)
             {
-                PlayerShotBehavior shot = Game.CurrentGame.ObjectPooler.instantiateObjFromPool("PlayerShot", spawnStart + spawnOffset * i, Quaternion.identity).GetComponent<PlayerShotBehavior>();
-                shot.Setup();
+                GameObject shot = Game.CurrentGame.ObjectPooler.instantiateObjFromPool("PlayerShot", spawnStart + spawnOffset * i, Quaternion.identity);
+                if (shot != null)
+                {
+                    PlayerShotBehavior shotBehavior = shot.GetComponent<PlayerShotBehavior>();
+                    shotBehavior.Setup();
+                }
             }
         }
     }
