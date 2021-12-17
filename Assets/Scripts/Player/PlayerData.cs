@@ -5,10 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public float rateOfFire = 0.1f;
-    public float shotSpeed = 12f;
-    public float shotSize = 1f;
-    public int levelProgress = 0;
+    public float RateOfFire = 0.1f;
+    public float ShotSpeed = 12f;
+    public float ShotSize = 1f;
+    public int NumberOfBullets = 1;
+    public int LevelProgress = 0;
+
+    public bool HasBoom = false;
+    public bool HasMagnet = false;
+    public bool BouncyBullets = false;
+    public bool SplittingBullets = false;
 
     private static string GetDataPath(string filename)
     {

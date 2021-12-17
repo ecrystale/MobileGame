@@ -14,7 +14,7 @@ public class PlayerShotBehavior : MonoBehaviour
     void Start()
     {
         homing = true;
-        _shotSpeed = Game.CurrentGame.PlayerData.shotSpeed;
+        _shotSpeed = Game.CurrentGame.PlayerData.ShotSpeed;
     }
 
     void Update()

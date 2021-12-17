@@ -20,7 +20,7 @@ public class PlayerShoot : TimeoutBehaviour
     protected override void Update()
     {
         base.Update();
-        if (Input.touchCount > 0 && !Game.CurrentGame.Paused && CheckAndReset(Game.CurrentGame.PlayerData.rateOfFire))
+        if (Input.touchCount > 0 && !Game.CurrentGame.Paused && CheckAndReset(Game.CurrentGame.PlayerData.RateOfFire))
         {
             foreach (Transform shotSpawner in shotSpawners)
             {

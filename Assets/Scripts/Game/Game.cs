@@ -41,7 +41,7 @@ public class Game : MonoBehaviour
 
         // Load PlayerData
         PlayerData = PlayerData.LoadJsonData(PublicVars.PlayerDataFile);
-        LevelProgress = PlayerData.levelProgress;
+        LevelProgress = PlayerData.LevelProgress;
 
         // Setup spawner
         _currentSpawner = FindObjectOfType<EnemySpawner>();
@@ -145,7 +145,7 @@ public class Game : MonoBehaviour
         int nextLevel = _currentLevel.Info.ID + 1;
         if (nextLevel > LevelProgress)
         {
-            PlayerData.levelProgress = nextLevel;
+            PlayerData.LevelProgress = nextLevel;
             LevelProgress = nextLevel;
             ProgressMade(nextLevel);
         }

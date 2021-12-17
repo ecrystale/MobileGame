@@ -103,7 +103,6 @@ public class LevelParser
             {
                 float[] components = segments[1].Split('|').Select(component => float.Parse(component)).ToArray();
                 spawner.Direction = new Vector2(components[0], components[1]);
-                Debug.Log(spawner.Direction);
             }
             return spawner;
         }).ToArray();
