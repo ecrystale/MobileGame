@@ -588,7 +588,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
 --- !u!4 &91068313 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8623369223826447887, guid: 1c00a986f62c99a438a9a41b72a4025c, type: 3}
@@ -8166,7 +8166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8623369223826447881, guid: 1c00a986f62c99a438a9a41b72a4025c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8623369223826447885, guid: 1c00a986f62c99a438a9a41b72a4025c, type: 3}
       propertyPath: Firing

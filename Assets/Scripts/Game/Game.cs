@@ -52,7 +52,7 @@ public class Game : MonoBehaviour
         Upgradables[((int)Purchasable.Split)] = new Upgradable(Purchasable.Split, "Split Shots", 0, 1, 1, 40, 0, 2, 1, PlayerData.UpgradesLevels[((int)Purchasable.Split)], true);
         Upgradables[((int)Purchasable.Bouncy)] = new Upgradable(Purchasable.Bouncy, "Bouncy Shots", 0, 1, 1, 40, 0, 2, 3, PlayerData.UpgradesLevels[((int)Purchasable.Bouncy)], true);
         Upgradables[((int)Purchasable.Homing)] = new Upgradable(Purchasable.Homing, "Homing", 0, 1, 1, 50, 0, 2, 1, PlayerData.UpgradesLevels[((int)Purchasable.Homing)], true);
-        Upgradables[((int)Purchasable.Magnet)] = new Upgradable(Purchasable.Magnet, "Magnet", 0, 1, 1, 20, 0, 2, 1, PlayerData.UpgradesLevels[((int)Purchasable.Magnet)], true);
+        Upgradables[((int)Purchasable.Magnet)] = new Upgradable(Purchasable.Magnet, "Magnet", 0, 1, 1, 10, 0, 2, 1, PlayerData.UpgradesLevels[((int)Purchasable.Magnet)], true);
         Upgradables[((int)Purchasable.Damage)] = new Upgradable(Purchasable.Damage, "Damage", 15, 5, 1, 5, 15, 1.5f, 5, PlayerData.UpgradesLevels[((int)Purchasable.Damage)]);
         Upgradables[((int)Purchasable.FireRate)] = new Upgradable(Purchasable.FireRate, "Fire Rate", 0.15f, -0.01f, 0.95f, 20, 10, 1.5f, 5, PlayerData.UpgradesLevels[((int)Purchasable.FireRate)]);
         Upgradables[((int)Purchasable.BulletSpeed)] = new Upgradable(Purchasable.BulletSpeed, "Bullet Speed", 12f, 1, 1, 10, 5, 2, 5, PlayerData.UpgradesLevels[((int)Purchasable.BulletSpeed)]);
