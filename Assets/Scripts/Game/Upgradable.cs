@@ -39,7 +39,7 @@ public class Upgradable
         for (; level > 0; level--)
         {
             CurrentPrice = ((int)(CurrentPrice * PriceMultiplier)) + PriceIncrement;
-            CurrentPower = ((int)(CurrentPower * PowerMultiplier)) + PowerIncrement;
+            CurrentPower = CurrentPower * PowerMultiplier + PowerIncrement;
         }
     }
 
