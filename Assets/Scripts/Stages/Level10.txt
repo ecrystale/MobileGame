@@ -1,0 +1,5 @@
+id: 9
+name: Level10
+healthFactor: 2
+END OF META
+9 h 0 false -1 10

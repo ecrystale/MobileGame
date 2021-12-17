@@ -12,7 +12,7 @@ public class LevelPage : MonoBehaviour
 
     public void Setup()
     {
-        float numLevels = (EndLevel - StartLevel);
+        float numLevels = (EndLevel - StartLevel + 1);
         int numRow = Mathf.CeilToInt(numLevels / LevelsPerRow);
         for (int i = 0; i < numRow; i++)
         {
