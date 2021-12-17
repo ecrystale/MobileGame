@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour
     public GameObject Background;
     public PageManager DeathScreen;
     public PageManager WinScreen;
+    public PageManager MainPage;
     public SummaryPage SummaryPage;
     public LevelPage LevelPage;
     public ShopPage ShopPage;
@@ -136,6 +137,20 @@ public class MenuManager : MonoBehaviour
 
         CurrentPage = PrevPages.Pop();
         _audiosrc.PlayOneShot(swoosh);
+        if (Showed) CurrentPage.ShowPage();
+    }
+
+    public void Reset()
+    {
+        if (Locked) return;
+
+        if (CurrentPage != null)
+        {
+            CurrentPage.HidePage();
+        }
+
+        PrevPages = new Stack<PageManager>();
+        CurrentPage = MainPage;
         if (Showed) CurrentPage.ShowPage();
     }
 }

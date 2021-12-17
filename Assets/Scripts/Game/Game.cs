@@ -86,6 +86,11 @@ public class Game : MonoBehaviour
         Menu.ShopPage.Setup();
     }
 
+    public bool IsLevelValid(int levelID)
+    {
+        return _levels.ContainsKey(levelID);
+    }
+
     public void Continue()
     {
         if (_levels.ContainsKey(LevelProgress))
@@ -101,6 +106,8 @@ public class Game : MonoBehaviour
         // Initialize level summary, this needs to be done first
         // as our event handlers update it
         CurrentLevelSummary = new SummaryData();
+        CurrentLevelSummary.ID = level.Info.ID;
+        CurrentLevelSummary.LevelName = level.Info.Name;
 
         // Reset the spawner
         _currentSpawner.Reset(level);
@@ -205,6 +212,7 @@ public class Game : MonoBehaviour
 
     private void PrepareSummary()
     {
+        Menu.Reset();
         Menu.SummaryPage.Setup(CurrentLevelSummary);
         Menu.PushPage(Menu.SummaryPage);
     }
