@@ -24,7 +24,7 @@ public class EnemyHealth : MonoBehaviour
             PlayerShotBehavior playerShotBehavior = other.GetComponent<PlayerShotBehavior>();
             _health -= playerShotBehavior.Damage;
 
-            Destroy(other);
+            Destroy(other.gameObject);
         }
 
         if (other.gameObject.CompareTag("Bomb"))
