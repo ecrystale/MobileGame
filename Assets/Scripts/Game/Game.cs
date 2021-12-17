@@ -165,10 +165,10 @@ public class Game : MonoBehaviour
             PlayerData.Coins += CurrentLevelSummary.Coin;
             SaveGame();
             if (CoinsChanged != null) CoinsChanged(PlayerData.Coins);
-            Menu.MainPage.Setup();
             Menu.LockDisplay(Menu.DeathScreen, PublicVars.DEATH_SCREEN_DRUATION);
             Menu.SetCanHide(false);
             IsInGame = false;
+            Menu.MainPage.Setup();
         }, PublicVars.LOSE_DELAY));
     }
 
@@ -189,11 +189,18 @@ public class Game : MonoBehaviour
         if (!isLastWave) return;
         StopAllCoroutines();
         int nextLevel = _currentLevel.Info.ID + 1;
+        PageManager flashScreen = Menu.WinScreen;
+        float flashDuration = PublicVars.WIN_SCREEN_DRUATION;
         if (nextLevel > LevelProgress)
         {
             PlayerData.LevelProgress = nextLevel;
             LevelProgress = nextLevel;
             ProgressMade(nextLevel);
+            if (!IsLevelValid(LevelProgress))
+            {
+                flashScreen = Menu.ClearedScreen;
+                flashDuration = PublicVars.ALL_CLEARED_SCREEN_DRUATION;
+            }
         }
         CurrentLevelSummary.Cleared = true;
         StartCoroutine(DelayedTask.Wrapper(() =>
@@ -202,10 +209,10 @@ public class Game : MonoBehaviour
             PlayerData.Coins += CurrentLevelSummary.Coin;
             SaveGame();
             if (CoinsChanged != null) CoinsChanged(PlayerData.Coins);
-            Menu.MainPage.Setup();
-            Menu.LockDisplay(Menu.WinScreen, PublicVars.WIN_SCREEN_DRUATION);
+            Menu.LockDisplay(flashScreen, flashDuration);
             Menu.SetCanHide(false);
             IsInGame = false;
+            Menu.MainPage.Setup();
         }, PublicVars.WIN_DELAY));
     }
 

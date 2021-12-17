@@ -14,6 +14,7 @@ public class PublicVars : MonoBehaviour
     public const float WAVE_INIT_INTERVAL = 2f;
     public const float DEATH_SCREEN_DRUATION = 2.6f;
     public const float WIN_SCREEN_DRUATION = 2.2f;
+    public const float ALL_CLEARED_SCREEN_DRUATION = 5.2f;
     public const float FRAME_MOVEMENT_SPEED_CAP = 1f;
     public const float WIN_DELAY = 2f;
     public const float LOSE_DELAY = 0.2f;
