@@ -8,9 +8,12 @@ public class PlayerData
     public float RateOfFire = 0.1f;
     public float ShotSpeed = 12f;
     public float ShotSize = 1f;
-    public int NumberOfBullets = 1;
+    public float BulletSpawnOffset = 0.3f;
+    public int Damage = 15;
+    public int NumberOfBullets = 2;
     public int LevelProgress = 0;
 
+    public bool HasHoming = false;
     public bool HasBoom = false;
     public bool HasMagnet = false;
     public bool BouncyBullets = false;

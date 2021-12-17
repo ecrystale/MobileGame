@@ -4,22 +4,16 @@ using UnityEngine;
 
 public class PlayerShotBehavior : MonoBehaviour
 {
-    public int Damage = 25;
-    private float _shotSpeed;
+    public int Damage => Game.CurrentGame.PlayerData.Damage;
 
-    public bool homing;
+    private float _shotSpeed => Game.CurrentGame.PlayerData.ShotSpeed;
+    private bool _homing => Game.CurrentGame.PlayerData.HasHoming;
     public int angularVelocity;
     private GameObject target;
 
-    void Start()
-    {
-        homing = true;
-        _shotSpeed = Game.CurrentGame.PlayerData.ShotSpeed;
-    }
-
     void Update()
     {
-        if (homing)
+        if (_homing)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player == null)

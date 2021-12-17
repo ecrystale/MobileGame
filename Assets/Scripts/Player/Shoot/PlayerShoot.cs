@@ -1,30 +1,25 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerShoot : TimeoutBehaviour
 {
     public bool Firing = false;
-    ArrayList shotSpawners = new ArrayList();
+    private int _numberOfBullets => Game.CurrentGame.PlayerData.NumberOfBullets;
+    private float _rateOfFire => Game.CurrentGame.PlayerData.RateOfFire;
+    private float _bulletSpawnOffset => Game.CurrentGame.PlayerData.BulletSpawnOffset;
 
-    void Start()
-    {
-        foreach (Transform tr in transform)
-        {
-            if (tr.tag == "ShotSpawner")
-            {
-                shotSpawners.Add(tr);
-            }
-        }
-    }
+    float shotSpawnOffset = 0.3f;
 
     protected override void Update()
     {
         base.Update();
-        if (Input.touchCount > 0 && !Game.CurrentGame.Paused && CheckAndReset(Game.CurrentGame.PlayerData.RateOfFire))
+        if (Input.touchCount > 0 && !Game.CurrentGame.Paused && CheckAndReset(_rateOfFire))
         {
-            foreach (Transform shotSpawner in shotSpawners)
+            int bulletsCount = _numberOfBullets;
+            Vector2 spawnOffset = Vector2.right * shotSpawnOffset;
+            Vector2 spawnStart = Vector2.up * shotSpawnOffset + (Vector2)transform.position - (spawnOffset * (bulletsCount - 1) / 2);
+            for (int i = 0; i < bulletsCount; i++)
             {
-                shotSpawner.GetComponent<PlayerShotSpawner>().shoot();
+                Game.CurrentGame.ObjectPooler.instantiateObjFromPool("PlayerShot", spawnStart + spawnOffset * i, Quaternion.identity);
             }
         }
     }

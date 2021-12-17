@@ -19,6 +19,7 @@ public class Game : MonoBehaviour
     public bool IsInGame { get; private set; }
     public SummaryData CurrentLevelSummary;
     public WorldBound WorldBound;
+    public ObjectPooler ObjectPooler;
 
     public event Action<Level> GameOvered;
     public event Action<int> ProgressMade;
