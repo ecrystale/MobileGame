@@ -16,8 +16,8 @@ public abstract class UIComponent : MonoBehaviour
     public void Register()
     {
         if (page == null) return;
-        page.PageShowed += (PageManager page) => DelayedTask.Wrapper(() => HandlePageShowed(page), EnterDelay, true);
-        page.PageHid += (PageManager page) => DelayedTask.Wrapper(() => HandlePageHid(page), ExitDelay, true);
+        page.PageShowed += (PageManager page) => StartCoroutine(DelayedTask.Wrapper(() => HandlePageShowed(page), EnterDelay, true));
+        page.PageHid += (PageManager page) => StartCoroutine(DelayedTask.Wrapper(() => HandlePageHid(page), ExitDelay, true));
     }
 
     public abstract void HandlePageShowed(PageManager page);
