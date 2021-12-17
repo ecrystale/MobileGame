@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 8623369223826447881}
+  Explode: {fileID: 7756032478232065651, guid: 7c49e0a8485504ce4a935502b754a4b9, type: 3}
   Dead: 0
 --- !u!58 &8623369222473903764
 CircleCollider2D:

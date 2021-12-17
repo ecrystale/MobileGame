@@ -50,8 +50,9 @@ public class Game : MonoBehaviour
         _currentSpawner.EnemySpawned += HandleEnemySpawned;
         _levels = new SortedList<int, Level>();
 
-        // Subscribe to PlayedDied event
+        // Subscribe to player events
         PlayerHitbox.PlayerDied += HandlePlayerDied;
+        PlayerHitbox.PlayerCollectedCoin += HandleCoinCollected;
 
         // When there is no game in progress,
         // disable menu toggling
@@ -108,7 +109,7 @@ public class Game : MonoBehaviour
         CurrentLevelSummary.Score += health.MaxHealth;
     }
 
-    private void HandleCoinCollected()
+    private void HandleCoinCollected(GameObject gameObject)
     {
         CurrentLevelSummary.Coin++;
     }
@@ -116,9 +117,13 @@ public class Game : MonoBehaviour
     private void HandlePlayerDied(GameObject player)
     {
         if (GameOvered != null) GameOvered(_currentLevel);
-        PrepareSummary();
-        Menu.LockDisplay(Menu.DeathScreen, PublicVars.DEATH_SCREEN_DRUATION);
-        Menu.SetCanHide(false);
+        StartCoroutine(DelayedTask.Wrapper(() =>
+        {
+            PrepareSummary();
+            SaveGame();
+            Menu.LockDisplay(Menu.DeathScreen, PublicVars.DEATH_SCREEN_DRUATION);
+            Menu.SetCanHide(false);
+        }, PublicVars.LOSE_DELAY));
     }
 
     // The followings are the handlers for EnemySpawner
@@ -145,11 +150,14 @@ public class Game : MonoBehaviour
             ProgressMade(nextLevel);
         }
         CurrentLevelSummary.Cleared = true;
-        PrepareSummary();
-        SaveGame();
-        Menu.LockDisplay(Menu.WinScreen, PublicVars.WIN_SCREEN_DRUATION);
-        Menu.SetCanHide(false);
-        IsInGame = false;
+        StartCoroutine(DelayedTask.Wrapper(() =>
+        {
+            PrepareSummary();
+            SaveGame();
+            Menu.LockDisplay(Menu.WinScreen, PublicVars.WIN_SCREEN_DRUATION);
+            Menu.SetCanHide(false);
+            IsInGame = false;
+        }, PublicVars.WIN_DELAY));
     }
 
     // Utilities

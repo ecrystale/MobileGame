@@ -4,7 +4,9 @@ using UnityEngine;
 public class PlayerHitbox : MonoBehaviour
 {
     public GameObject Player;
+    public GameObject Explode;
     public event Action<GameObject> PlayerDied;
+    public event Action<GameObject> PlayerCollectedCoin;
     public bool Dead = false;
 
     void Start()
@@ -17,12 +19,14 @@ public class PlayerHitbox : MonoBehaviour
         if (other.gameObject.CompareTag("EnemyShot") && !Dead)
         {
             Dead = true;
+            Instantiate(Explode, transform.position, transform.rotation);
             if (PlayerDied != null) PlayerDied(Player);
             Player.SetActive(false);
         }
 
-        // Just destroy for now
-        if(other.gameObject.CompareTag("Coin")){
+        if (other.gameObject.CompareTag("Coin"))
+        {
+            if (PlayerCollectedCoin != null) PlayerCollectedCoin(Player);
             Destroy(other.gameObject);
         }
     }
