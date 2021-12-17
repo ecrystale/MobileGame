@@ -6,7 +6,7 @@ public class TimeoutBehaviour : MonoBehaviour
 
     protected virtual void Update()
     {
-        _timeout -= Time.deltaTime;
+        _timeout -= Time.unscaledDeltaTime;
         if (_timeout <= 0) _timeout = 0;
     }
 
