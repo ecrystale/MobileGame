@@ -37,7 +37,7 @@ public class EnemyHealth : MonoBehaviour
                 }
             }
 
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
 
         if (other.gameObject.CompareTag("Bomb"))

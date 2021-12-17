@@ -4069,7 +4069,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: 1f983a96836ebf44696a34cb5889a7ba, type: 3}
     - target: {fileID: 5953743725605217338, guid: d4d9ed7c25dd9964b8438c43cb01cdd4, type: 3}
       propertyPath: enemy.Array.size
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5953743725605217338, guid: d4d9ed7c25dd9964b8438c43cb01cdd4, type: 3}
       propertyPath: enemy.Array.data[0]
@@ -4107,6 +4107,10 @@ PrefabInstance:
       propertyPath: enemy.Array.data[8]
       value: 
       objectReference: {fileID: 948049333638618697, guid: 9eea1d32ce0570149a3f6e424756dba8, type: 3}
+    - target: {fileID: 5953743725605217338, guid: d4d9ed7c25dd9964b8438c43cb01cdd4, type: 3}
+      propertyPath: enemy.Array.data[9]
+      value: 
+      objectReference: {fileID: 948049333638618697, guid: 456660ad3a611634d81be68af7c2bea7, type: 3}
     - target: {fileID: 5953743725605217338, guid: d4d9ed7c25dd9964b8438c43cb01cdd4, type: 3}
       propertyPath: spawnpts.Array.size
       value: 7
