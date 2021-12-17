@@ -50,8 +50,9 @@ public class Game : MonoBehaviour
         _currentSpawner.EnemySpawned += HandleEnemySpawned;
         _levels = new SortedList<int, Level>();
 
-        // Subscribe to PlayedDied event
+        // Subscribe to player events
         PlayerHitbox.PlayerDied += HandlePlayerDied;
+        PlayerHitbox.PlayerCollectedCoin += HandleCoinCollected;
 
         // When there is no game in progress,
         // disable menu toggling
@@ -108,7 +109,7 @@ public class Game : MonoBehaviour
         CurrentLevelSummary.Score += health.MaxHealth;
     }
 
-    private void HandleCoinCollected()
+    private void HandleCoinCollected(GameObject gameObject)
     {
         CurrentLevelSummary.Coin++;
     }

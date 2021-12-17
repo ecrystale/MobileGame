@@ -5,6 +5,7 @@ public class PlayerHitbox : MonoBehaviour
 {
     public GameObject Player;
     public event Action<GameObject> PlayerDied;
+    public event Action<GameObject> PlayerCollectedCoin;
     public bool Dead = false;
 
     void Start()
@@ -22,7 +23,9 @@ public class PlayerHitbox : MonoBehaviour
         }
 
         // Just destroy for now
-        if(other.gameObject.CompareTag("Coin")){
+        if (other.gameObject.CompareTag("Coin"))
+        {
+            if (PlayerCollectedCoin != null) PlayerCollectedCoin(Player);
             Destroy(other);
         }
     }
