@@ -77,7 +77,6 @@ public class Game : MonoBehaviour
         {
             Level level = LevelParser.ParseLevelFromFile(file, _currentSpawner.spawnpts.Length, _currentSpawner.enemy.Length);
             _levels.Add(level.Info.ID, level);
-            Debug.Log("read " + level.Info.ID);
         }
 
         Menu.LevelPage.StartLevel = 0;
