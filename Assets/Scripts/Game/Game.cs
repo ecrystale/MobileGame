@@ -44,7 +44,7 @@ public class Game : MonoBehaviour
 
         // Load PlayerData
         PlayerData = PlayerData.LoadJsonData(PublicVars.PlayerDataFile);
-        LevelProgress = PlayerData.LevelProgress;
+        LevelProgress = 3;
 
         // 9 is the number of enums in Purchasable
         Upgradables = new Upgradable[PublicVars.MAX_PURCHASABLES];
@@ -120,14 +120,14 @@ public class Game : MonoBehaviour
         PlayerHitbox.Dead = false;
         ObjectPooler.CleanAll();
 
+        // Update IsInGame state
+        IsInGame = true;
+
         // Navigate through the menu
         Menu.MainPage.Setup();
         Menu.SetCanHide(true);
         Menu.Back();
         Menu.HideMenu();
-
-        // Update IsInGame state
-        IsInGame = true;
     }
 
     public void HandlePurchase(Purchasable purchasable)
