@@ -24,7 +24,6 @@ public class PlayerData
 
     public int[] UpgradesLevels = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     public bool[] AbilitiesEnabled = { false, false, false, false, false };
-    public int BouncyBulletsLevel = 0;
     public bool SplittingBullets = false;
 
     private static string GetDataPath(string filename)

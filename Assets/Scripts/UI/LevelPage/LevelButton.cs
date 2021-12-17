@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class LevelButton : ButtonBehaviour
 {
     public bool ContinueMode;
-    public Button Button { get; private set; }
     public Text Text;
     public int levelIDToLoad;
 
