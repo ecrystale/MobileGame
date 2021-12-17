@@ -12,4 +12,6 @@ public struct Spawner
     public bool Centralized;
     /// <value>The time this group of enemies shall stay</value>
     public float Duration;
+    /// <value>The coin reward per enemy</value>
+    public int CoinReward;
 }

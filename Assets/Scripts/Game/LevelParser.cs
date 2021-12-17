@@ -80,19 +80,20 @@ public class LevelParser
         Spawner[] parsedStages = rawStages.Select(rawStage =>
         {
             // Format:
-            //    0000000          v           1           false         1
-            // enemy indexes   direction  spawn index   centralized   duration
-            //    0000000        1|2         1             true          -1
+            //    0000000          v           1           false         1           4
+            // enemy indexes   direction  spawn index   centralized   duration   coin reward
+            //    0000000        1|2         1             true          -1          0
             Spawner spawner = new Spawner();
 
             string[] segments = rawStage.Split();
-            if (segments.Length < 5) throw new ParsingException($"5 arguments excepted, but {segments.Length} arguments are given in {_filename}");
+            if (segments.Length < 6) throw new ParsingException($"6 arguments excepted, but {segments.Length} arguments are given in {_filename}");
             try
             {
                 spawner.Enemies = segments[0].Select(enemyChar => Int32.Parse(enemyChar.ToString())).ToArray();
                 spawner.SpawnPointIndex = Int32.Parse(segments[2]);
                 spawner.Centralized = bool.Parse(segments[3]);
                 spawner.Duration = Int32.Parse(segments[4]);
+                spawner.CoinReward = Int32.Parse(segments[5]);
                 _maxSpawnPoint = Math.Max(spawner.SpawnPointIndex, _maxSpawnPoint);
                 _maxEnemyTypeIndex = Math.Max(spawner.Enemies[spawner.Enemies.Max(e => e)], _maxEnemyTypeIndex);
             }

@@ -83,7 +83,7 @@ public class EnemySpawner : MonoBehaviour
 
                 enemyMove.Spawner(spawnPosition, instantiatePosition, spawner.Duration);
 
-                enemyHealth.Destroyed += (EnemyHealth enemyHealth) => HandleDestroyed(wave, enemyHealth, isLastWave);
+                enemyHealth.Destroyed += (EnemyHealth enemyHealth) => HandleDestroyed(wave, enemyHealth, isLastWave, spawner.CoinReward);
 
                 if (EnemySpawned != null) EnemySpawned(this, enemyHealth, enemyMove);
 
@@ -100,8 +100,9 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void HandleDestroyed(int wave, EnemyHealth enemyHealth, bool isLastWave)
+    void HandleDestroyed(int wave, EnemyHealth enemyHealth, bool isLastWave, int coinReward)
     {
+        Debug.Log(coinReward);
         _waveEnemiesCount[wave]--;
         _activeEnemies.Remove(enemyHealth.gameObject);
         if (_waveEnemiesCount[wave] == 0)
